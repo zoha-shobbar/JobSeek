@@ -1,8 +1,9 @@
-﻿namespace JobSeek.Api.Models.Input
+﻿using JobSeek.Api.Models.Output;
+
+namespace JobSeek.Api.Models.Input
 {
-    public class EmployerOutput
+    public class EmployerOutput : output
     {
         public string CompanyName { get; set; }
-        public string Adress { get; set; }
     }
 }
