@@ -6,18 +6,18 @@ namespace JobSeek.Api.Models.Entities
     {
         public string Details { get; set; }
         public string PositionTitle { get; set; }
-        public Enum Status { get; set; }
+        public enum Status { get; set; }
         public int MinSalary { get; set; }
         public int MaxSalary { get; set; }
         public DateTimeOffset ExpireDate { get; set; }
-        public Enum TypeCooperation { get; set; }
-        public Enum ContractType { get; set; }
-        public Enum WorkExperience { get; set; }
-        public Enum Workplace { get; set; }
-        public Enum Advantages { get; set; }
-        public Enum Grade { get; set; }
-        public Enum SeniorityLevel { get; set; }
-        public Enum TypeIndustry { get; set; }
+        public enum TypeCooperation { get; set; }
+        public enum ContractType { get; set; }
+        public enum WorkExperience { get; set; }
+        public enum Workplace { get; set; }
+        public enum Advantages { get; set; }
+        public enum Grade { get; set; }
+        public enum SeniorityLevel { get; set; }
+        public enum TypeIndustry { get; set; }
 
 
 

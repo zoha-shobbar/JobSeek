@@ -6,12 +6,12 @@ namespace JobSeek.Api.Models.Entities
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string MajoringIn { get; set; }
-        public Enum Degree { get; set; }
+        public enum MajoringIn { get; set; }
+        public enum Degree { get; set; }
         public DateTimeOffset BirthDate { get; set; }
-        public Enum Gender { get; set; }
-        public Enum MaritalStatus { get; set; }
-        public Enum MilitaryService { get; set; }
+        public enum Gender { get; set; }
+        public enum MaritalStatus { get; set; }
+        public enum MilitaryService { get; set; }
 
 
 
