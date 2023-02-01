@@ -7,6 +7,5 @@ namespace JobSeek.Api.Models.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-
     }
 }
