@@ -7,7 +7,7 @@ namespace JobSeek.Api.Models.Entities
         public string Title { get; set; }
         public string Description { get; set; }
 
-        public int ParentJobCategoryId { get; set; }
+        public int? ParentJobCategoryId { get; set; }
         public JobCategory ParentJobCategory { get; set; }
     }
 }
