@@ -1,4 +1,5 @@
-﻿using JobSeek.Api.Models.Entities.Common;
+﻿using JobSeek.Api.Enums;
+using JobSeek.Api.Models.Entities.Common;
 
 namespace JobSeek.Api.Models.Entities
 {
@@ -9,5 +10,7 @@ namespace JobSeek.Api.Models.Entities
 
         public Job Job { get; set; }
         public int JobId { get; set; }
+
+        public CvCheckStatus CvCheckStatus { get; set; }
     }
 }
