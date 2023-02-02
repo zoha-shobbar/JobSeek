@@ -7,7 +7,7 @@ namespace JobSeek.Api.Models.Entities
     {
         public string Details { get; set; }
         public string PositionTitle { get; set; }
-        public enum JobStatus { get; set; }
+        public JobStatus JobStatus { get; set; }
         public int MinSalary { get; set; }
         public int MaxSalary { get; set; }
         public DateTimeOffset ExpireDate { get; set; }
