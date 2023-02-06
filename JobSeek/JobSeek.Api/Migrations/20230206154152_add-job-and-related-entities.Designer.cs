@@ -4,6 +4,7 @@ using JobSeek.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobSeek.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230206154152_add-job-and-related-entities")]
+    partial class addjobandrelatedentities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,11 +120,16 @@ namespace JobSeek.Api.Migrations
                     b.Property<DateTimeOffset>("ModificationDate")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<int?>("ParentJobCategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentJobCategoryId");
 
                     b.ToTable("JobCategories");
                 });
@@ -210,32 +218,6 @@ namespace JobSeek.Api.Migrations
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("JobSeek.Api.Models.TestEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTimeOffset>("CreationDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset>("ModificationDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TestEntities");
-                });
-
             modelBuilder.Entity("JobSeek.Api.Models.Entities.Employee", b =>
                 {
                     b.HasBaseType("JobSeek.Api.Models.Entities.User");
@@ -316,16 +298,26 @@ namespace JobSeek.Api.Migrations
                     b.Navigation("JobCategory");
                 });
 
+            modelBuilder.Entity("JobSeek.Api.Models.Entities.JobCategory", b =>
+                {
+                    b.HasOne("JobSeek.Api.Models.Entities.JobCategory", "ParentJobCategory")
+                        .WithMany()
+                        .HasForeignKey("ParentJobCategoryId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("ParentJobCategory");
+                });
+
             modelBuilder.Entity("JobSeek.Api.Models.Entities.JobEmployee", b =>
                 {
                     b.HasOne("JobSeek.Api.Models.Entities.Employee", "Employee")
-                        .WithMany("JobEmployees")
+                        .WithMany()
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("JobSeek.Api.Models.Entities.Job", "Job")
-                        .WithMany("JobEmployees")
+                        .WithMany()
                         .HasForeignKey("JobId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -333,16 +325,6 @@ namespace JobSeek.Api.Migrations
                     b.Navigation("Employee");
 
                     b.Navigation("Job");
-                });
-
-            modelBuilder.Entity("JobSeek.Api.Models.Entities.Job", b =>
-                {
-                    b.Navigation("JobEmployees");
-                });
-
-            modelBuilder.Entity("JobSeek.Api.Models.Entities.Employee", b =>
-                {
-                    b.Navigation("JobEmployees");
                 });
 
             modelBuilder.Entity("JobSeek.Api.Models.Entities.Employer", b =>
