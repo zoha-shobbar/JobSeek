@@ -2,7 +2,7 @@
 
 namespace JobSeek.Api.Repository.Contracts
 {
-    public interface IJobCategory
+    public interface IJobCategoryRepository
     {
         List<JobCategory> GetAll();
         JobCategory Create(JobCategory jobCategory);

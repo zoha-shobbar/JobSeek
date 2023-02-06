@@ -1,4 +1,7 @@
 using JobSeek.Api.Data;
+using JobSeek.Api.Models.Entities;
+using JobSeek.Api.Repository;
+using JobSeek.Api.Repository.Contracts;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +14,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContextFactory<DataContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IJobCategoryRepository, JobCategoryRepository>()
 
 
 var app = builder.Build();

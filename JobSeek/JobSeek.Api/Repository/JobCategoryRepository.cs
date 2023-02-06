@@ -4,17 +4,18 @@ using JobSeek.Api.Repository.Contracts;
 
 namespace JobSeek.Api.Repository
 {
-    public class JobCategoty : IJobCategory
+    public class JobCategoryRepository : IJobCategoryRepository
     {
         private readonly DataContext _context;
 
-        public JobCategoty(DataContext context)
+        public JobCategoryRepository(DataContext context)
         {
-            this._context = context;
+            _context = context;
         }
 
         public List<JobCategory> GetAll()
         {
+            return _context.JobCategories.ToList();
         }
 
         public JobCategory Create(JobCategory jobCategory)
