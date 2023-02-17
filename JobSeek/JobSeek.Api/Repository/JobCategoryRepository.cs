@@ -26,16 +26,25 @@ namespace JobSeek.Api.Repository
 
             return jobCategory;
         }
-        public JobCategory Create(JobCategory jobCategory)
+        public JobCategory Create(JobCategory input)
         {
-            _dbcontext.JobCategories.Add(jobCategory);
+            _dbcontext.JobCategories.Add(input);
             _dbcontext.SaveChanges();
-            return jobCategory;
+            return input;
         }
 
-        public bool Delete(int jobCategoryId)
+        public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            var jobCategory = _dbcontext.JobCategories
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
+
+            if (jobCategory == null) return false;
+
+            _dbcontext.JobCategories.Remove(jobCategory);
+            _dbcontext.SaveChanges();
+
+            return true;
         }
 
     }
