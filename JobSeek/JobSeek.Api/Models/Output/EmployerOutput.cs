@@ -1,8 +1,8 @@
 ﻿using JobSeek.Api.Models.Output;
 
-namespace JobSeek.Api.Models.Input
+namespace JobSeek.Api.Models.Output
 {
-    public class EmployerOutput : output
+    public class EmployerOutput : UserOutput
     {
         public string CompanyName { get; set; }
         public string JobField { get; set; }

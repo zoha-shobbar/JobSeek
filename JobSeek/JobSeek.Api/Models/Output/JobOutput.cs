@@ -1,10 +1,11 @@
 ﻿using JobSeek.Api.Enums;
 using JobSeek.Api.Models.Entities;
 
-namespace JobSeek.Api.Models.Input
+namespace JobSeek.Api.Models.Output
 {
     public class JobOutput
     {
+        public int id { get; set; }
         public string Details { get; set; }
         public string PositionTitle { get; set; }
         public JobStatus JobStatus { get; set; }
