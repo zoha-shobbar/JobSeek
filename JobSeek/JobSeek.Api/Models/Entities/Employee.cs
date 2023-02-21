@@ -6,11 +6,11 @@ namespace JobSeek.Api.Models.Entities
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public SeniorityLevel MajoringIn { get; set; }
-        public Education Degree { get; set; }
+        public SeniorityLevel SeniorityLevel { get; set; }
+        public Education Education { get; set; }
         public DateTimeOffset BirthDate { get; set; }
         public Gender Gender { get; set; }
-        public int MaritalStatus { get; set; }
+        public MaritalStatus MaritalStatus { get; set; }
         public MilitaryService MilitaryService { get; set; }
 
         //Collections

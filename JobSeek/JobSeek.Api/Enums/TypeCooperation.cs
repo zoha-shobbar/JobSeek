@@ -4,6 +4,6 @@
     {
         PartTime,
         FullTime,
-        Project,
+        Project
     }
 }
