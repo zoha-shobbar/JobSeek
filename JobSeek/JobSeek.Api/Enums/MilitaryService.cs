@@ -6,6 +6,6 @@
         Exempt,
         Precept,
         Passing,
-        Passed,
+        Passed
     }
 }
