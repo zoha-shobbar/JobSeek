@@ -1,5 +1,7 @@
 ﻿using JobSeek.Api.Models.Entities;
+using JobSeek.Api.Models.Input;
 using JobSeek.Api.Repository.Contracts;
+using JobSeek.Api.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobSeek.Api.Controllers
@@ -8,36 +10,36 @@ namespace JobSeek.Api.Controllers
     [ApiController]
     public class JobCategoryController : ControllerBase
     {
-        private readonly IJobCategoryRepository repository;
+        private readonly IJobCategoryService service;
 
-        public JobCategoryController(IJobCategoryRepository repository)
+        public JobCategoryController(IJobCategoryService service)
         {
-            this.repository = repository;
+            this.service = service;
         }
 
         [HttpGet]
         public List<JobCategory> Get()
         {
-            return repository.GetAll();
+            return service.GetAll();
         }
 
         [HttpGet("{id}")]
         public JobCategory Get(int id)
         {
-            return repository.GetById(id);
+            return service.GetById(id);
         }
 
 
         [HttpPost]
-        public JobCategory Create(JobCategory input)
+        public JobCategory Create(JobCategoryInput input)
         {
-            return repository.Create(input);
+            return service.Create(input);
         }
 
         [HttpDelete]
         public bool Delete(int id)
         {
-            return repository.Delete(id);
+            return service.Delete(id);
         }
     }
 }
