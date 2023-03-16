@@ -1,6 +1,7 @@
 ﻿using JobSeek.Api.Data;
 using JobSeek.Api.Models.Entities;
 using JobSeek.Api.Repository.Contracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobSeek.Api.Repository
 {
@@ -47,5 +48,18 @@ namespace JobSeek.Api.Repository
             return true;
         }
 
+        public bool Update(int id)
+        {
+            var jobCategory = _dbcontext.JobCategories
+            .Where(x => x.Id == id)
+            .FirstOrDefault();
+
+            if (jobCategory == null) return false;
+
+            _dbcontext.Entry(jobCategory).State = EntityState.Modified;
+            _dbcontext.SaveChanges();
+
+            return true;
+        }
     }
 }
