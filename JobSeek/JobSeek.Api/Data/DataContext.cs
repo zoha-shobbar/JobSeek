@@ -22,6 +22,6 @@ namespace JobSeek.Api.Data
         public DbSet<User> users { get; set; }
         public DbSet<Job> Jobs { get; set; }
         public DbSet<JobEmployee> JobEmployees { get; set; }
-        public DbSet<TestEntity> TestEntities{ get; set; }
+     
     }
 }

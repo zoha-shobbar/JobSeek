@@ -5,6 +5,6 @@
         Displayed,
         Checking,
         AcceptToInterivew,
-        Rejected,
+        Rejected
     }
 }

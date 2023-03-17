@@ -3,7 +3,7 @@
     public enum SeniorityLevel
     {
         Intern,
-        Jonior,
+        Junior,
         MidLevel,
         Senior,
         TeamLead
