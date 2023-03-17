@@ -8,6 +8,6 @@ namespace JobSeek.Api.Repository.Contracts
         JobCategory GetById(int id);
         JobCategory Create(JobCategory input);
         bool Delete(int id);
-        bool Update(int id); 
+        JobCategory Update(int id, JobCategory input); 
     }
 }

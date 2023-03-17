@@ -2,6 +2,8 @@
 using JobSeek.Api.Models.Entities;
 using JobSeek.Api.Repository.Contracts;
 using Microsoft.EntityFrameworkCore;
+using NuGet.DependencyResolver;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace JobSeek.Api.Repository
 {
@@ -48,18 +50,18 @@ namespace JobSeek.Api.Repository
             return true;
         }
 
-        public bool Update(int id)
+        public JobCategory Update(int id, JobCategory input)
         {
             var jobCategory = _dbcontext.JobCategories
-            .Where(x => x.Id == id)
+             .Where(x => x.Id == id)
             .FirstOrDefault();
-
-            if (jobCategory == null) return false;
-
-            _dbcontext.Entry(jobCategory).State = EntityState.Modified;
+            if (jobCategory != null)
+           
+            _dbcontext.Entry(jobCategory).CurrentValues.SetValues(input);
+            _dbcontext.JobCategories.Update(input);
             _dbcontext.SaveChanges();
 
-            return true;
+            return input;
         }
     }
 }

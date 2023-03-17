@@ -38,9 +38,9 @@ namespace JobSeek.Api.Services.Implementation
             return _repository.GetById(id);
         }
 
-        public bool Update(int id)
+        public JobCategory Update(int id, JobCategory input)
         {
-          return _repository.Update(id);  
+            return _repository.Update(id, input);
         }
     }
 }

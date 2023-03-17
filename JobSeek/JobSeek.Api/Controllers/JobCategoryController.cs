@@ -42,9 +42,9 @@ namespace JobSeek.Api.Controllers
             return service.Delete(id);
         }
 
-        public bool Update(int id)
+        public JobCategory Update(int id, JobCategory input)
         {
-            return service.Delete(id);
+            return service.Update(id,input);
         }
 
     }
