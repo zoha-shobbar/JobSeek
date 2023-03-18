@@ -1,9 +1,7 @@
 ﻿using JobSeek.Api.Data;
 using JobSeek.Api.Models.Entities;
 using JobSeek.Api.Repository.Contracts;
-using Microsoft.EntityFrameworkCore;
-using NuGet.DependencyResolver;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+
 
 namespace JobSeek.Api.Repository
 {
@@ -49,15 +47,18 @@ namespace JobSeek.Api.Repository
 
             return true;
         }
-
+     
         public JobCategory Update(int id, JobCategory input)
         {
             var jobCategory = _dbcontext.JobCategories
              .Where(x => x.Id == id)
             .FirstOrDefault();
+
             if (jobCategory != null)
+
+               jobCategory.Title = input.Title;
+               jobCategory.Description = input.Description;
            
-            _dbcontext.Entry(jobCategory).CurrentValues.SetValues(input);
             _dbcontext.JobCategories.Update(input);
             _dbcontext.SaveChanges();
 

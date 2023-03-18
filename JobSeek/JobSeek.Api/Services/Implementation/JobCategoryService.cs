@@ -38,9 +38,10 @@ namespace JobSeek.Api.Services.Implementation
             return _repository.GetById(id);
         }
 
-        public JobCategory Update(int id, JobCategory input)
+        public JobCategory Update(int id, JobCategoryInput input)
         {
-            return _repository.Update(id, input);
+            JobCategory entity = input.Adapt<JobCategory>();
+            return _repository.Update(id,entity);
         }
     }
 }

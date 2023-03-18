@@ -9,6 +9,6 @@ namespace JobSeek.Api.Services.Contracts
         bool Delete(int id);
         List<JobCategory> GetAll();
         JobCategory GetById(int id);
-        JobCategory Update(int id, JobCategory input);
+        JobCategory Update(int id, JobCategoryInput input);
     }
 }
