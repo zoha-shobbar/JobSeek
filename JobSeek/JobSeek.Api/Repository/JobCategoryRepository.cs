@@ -47,19 +47,17 @@ namespace JobSeek.Api.Repository
 
             return true;
         }
-     
+
         public JobCategory Update(int id, JobCategory input)
         {
             var jobCategory = _dbcontext.JobCategories
-             .Where(x => x.Id == id)
-            .FirstOrDefault();
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
 
-            if (jobCategory != null)
+            jobCategory.Title = input.Title;
+            jobCategory.Description = input.Description;
 
-               jobCategory.Title = input.Title;
-               jobCategory.Description = input.Description;
-           
-            _dbcontext.JobCategories.Update(input);
+            _dbcontext.JobCategories.Update(jobCategory);
             _dbcontext.SaveChanges();
 
             return input;
