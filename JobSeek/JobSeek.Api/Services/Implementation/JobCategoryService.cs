@@ -40,6 +40,11 @@ namespace JobSeek.Api.Services.Implementation
 
         public JobCategory Update(int id, JobCategoryInput input)
         {
+            var existedEntity = _repository.GetById(id);
+            
+            if (existedEntity == null) 
+                throw new Exception("not found."); 
+            
             JobCategory entity = input.Adapt<JobCategory>();
             return _repository.Update(id,entity);
         }

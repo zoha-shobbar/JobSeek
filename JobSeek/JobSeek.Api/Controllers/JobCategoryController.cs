@@ -42,7 +42,8 @@ namespace JobSeek.Api.Controllers
             return service.Delete(id);
         }
 
-        public JobCategory Update(int id, JobCategory input)
+        [HttpPut]
+        public JobCategory Update(int id, JobCategoryInput input)
         {
             return service.Update(id,input);
         }
