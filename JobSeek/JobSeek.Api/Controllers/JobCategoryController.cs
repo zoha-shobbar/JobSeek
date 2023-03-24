@@ -36,6 +36,7 @@ namespace JobSeek.Api.Controllers
             return service.Create(input);
         }
 
+        //deleted api
         [HttpDelete]
         public bool Delete(int id)
         {
