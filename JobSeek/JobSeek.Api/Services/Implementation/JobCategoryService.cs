@@ -25,7 +25,7 @@ namespace JobSeek.Api.Services.Implementation
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+           return _repository.Delete(id);   
         }
 
         public List<JobCategory> GetAll()
@@ -35,7 +35,18 @@ namespace JobSeek.Api.Services.Implementation
 
         public JobCategory GetById(int id)
         {
-            throw new NotImplementedException();
+            return _repository.GetById(id);
+        }
+
+        public JobCategory Update(int id, JobCategoryInput input)
+        {
+            var existedEntity = _repository.GetById(id);
+            
+            if (existedEntity == null) 
+                throw new Exception("not found."); 
+            
+            JobCategory entity = input.Adapt<JobCategory>();
+            return _repository.Update(id,entity);
         }
     }
 }

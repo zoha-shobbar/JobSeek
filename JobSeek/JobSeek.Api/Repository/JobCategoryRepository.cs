@@ -2,6 +2,7 @@
 using JobSeek.Api.Models.Entities;
 using JobSeek.Api.Repository.Contracts;
 
+
 namespace JobSeek.Api.Repository
 {
     public class JobCategoryRepository : IJobCategoryRepository
@@ -47,5 +48,19 @@ namespace JobSeek.Api.Repository
             return true;
         }
 
+        public JobCategory Update(int id, JobCategory input)
+        {
+            var jobCategory = _dbcontext.JobCategories
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
+
+            jobCategory.Title = input.Title;
+            jobCategory.Description = input.Description;
+
+            _dbcontext.JobCategories.Update(jobCategory);
+            _dbcontext.SaveChanges();
+
+            return input;
+        }
     }
 }
