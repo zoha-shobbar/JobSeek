@@ -1,4 +1,5 @@
 ﻿using JobSeek.Api.Models.Entities;
+using JobSeek.Api.Models.Input;
 using JobSeek.Api.Services.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +14,7 @@ namespace JobSeek.Api.Controllers
 
         public JobsController(IJobSerivce jobSerivce)
         {
-            this._jobSerivce = jobSerivce;
+            _jobSerivce = jobSerivce;
         }
 
         [HttpGet]
@@ -29,16 +30,21 @@ namespace JobSeek.Api.Controllers
         }
 
         [HttpPost]
-        public Job create(Job job)
+        public Job Create(JobInput job)
         {
-          return _jobSerivce.create(job);
+          return _jobSerivce.Create(job);
         }
 
         [HttpDelete]
-        public bool delete(int id)
+        public bool Delete(int id)
         {
-            return _jobSerivce.delete(id);   
+            return _jobSerivce.Delete(id);   
         }
 
+        [HttpPut]
+        public Job Update(int id, JobInput job)
+        {
+            return _jobSerivce.Update(id, job);
+        }
     }
 }

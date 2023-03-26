@@ -7,7 +7,8 @@ namespace JobSeek.Api.Repository.Contracts
     {
         List<Job> GetAll();
         Job GetById(int id);
-        Job create(Job job);
-        bool delete(int id);
+        bool Delete(int id);
+        Job Create(JobInput input);
+        Job Update(int id , JobInput job);
     }
 }

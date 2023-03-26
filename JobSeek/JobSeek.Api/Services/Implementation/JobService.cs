@@ -2,6 +2,7 @@
 using JobSeek.Api.Models.Input;
 using JobSeek.Api.Repository.Contracts;
 using JobSeek.Api.Services.Contracts;
+using Mapster;
 
 namespace JobSeek.Api.Services.Implementation
 {
@@ -11,7 +12,7 @@ namespace JobSeek.Api.Services.Implementation
 
         public JobService(IJobRepository repository) 
         {
-            this._repository = repository;
+            _repository = repository;
         }
         public List<Job> GetAll()
         {
@@ -23,17 +24,22 @@ namespace JobSeek.Api.Services.Implementation
             return _repository.GetById(id);
         }
         
-        public Job create(Job job)
+        public Job Create(JobInput input)
         {
-            return _repository.create(job);
+            return _repository.Create(input);
         }
 
-        public bool delete(int id)
+        public bool Delete(int id)
         {
-            var ExistEntity = _repository.delete(id);
-            if (id == null)
+            return _repository.Delete(id);
+        }
+
+        public Job Update(int id, JobInput input)
+        {
+            var entityJob = _repository.GetById(id);
+            if (entityJob == null)
                 throw new Exception("this is not found!");
-            return ExistEntity;
+            return _repository.Update(id, input);
         }
     }
 }
