@@ -8,11 +8,11 @@ namespace JobSeek.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class JobsController : IBaseSerivce
+    public class JobsController : IBaseSerivce<Job,JobInput>
     {
-        private readonly IBaseSerivce _jobSerivce;
+        private readonly IBaseSerivce<Job, JobInput> _jobSerivce;
 
-        public JobsController(IBaseSerivce jobSerivce)
+        public JobsController(IBaseSerivce<Job, JobInput> jobSerivce)
         {
             _jobSerivce = jobSerivce;
         }
