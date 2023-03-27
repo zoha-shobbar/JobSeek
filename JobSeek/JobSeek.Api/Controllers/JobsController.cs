@@ -8,11 +8,11 @@ namespace JobSeek.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class JobsController : IJobSerivce
+    public class JobsController : ControllerBase
     {
-        private readonly IJobSerivce _jobSerivce;
+        private readonly IBaseSerivce<Job, JobInput> _jobSerivce;
 
-        public JobsController(IJobSerivce jobSerivce)
+        public JobsController(IBaseSerivce<Job, JobInput> jobSerivce)
         {
             _jobSerivce = jobSerivce;
         }
@@ -32,13 +32,13 @@ namespace JobSeek.Api.Controllers
         [HttpPost]
         public Job Create(JobInput job)
         {
-          return _jobSerivce.Create(job);
+            return _jobSerivce.Create(job);
         }
 
         [HttpDelete]
         public bool Delete(int id)
         {
-            return _jobSerivce.Delete(id);   
+            return _jobSerivce.Delete(id);
         }
 
         [HttpPut]
