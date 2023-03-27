@@ -33,9 +33,10 @@ namespace JobSeek.Api.Controllers
         [HttpPost]
         public JobCategory Create(JobCategoryInput input)
         {
-            return service.Create(input);
+            throw new NotImplementedException();
         }
 
+        //deleted api
         [HttpDelete]
         public bool Delete(int id)
         {
