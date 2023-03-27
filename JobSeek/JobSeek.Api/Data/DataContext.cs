@@ -64,6 +64,9 @@ namespace JobSeek.Api.Data
         public DbSet<Job> Jobs { get; set; }
         public DbSet<JobEmployee> JobEmployees { get; set; }
 
+        public DbSet<Employee> Employees { get; set; }
+
+
 
     }
 
