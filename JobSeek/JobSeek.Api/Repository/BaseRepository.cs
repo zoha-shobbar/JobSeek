@@ -1,9 +1,10 @@
 ﻿using JobSeek.Api.Data;
 using JobSeek.Api.Models.Entities.Common;
+using JobSeek.Api.Repository.Contracts;
 
 namespace JobSeek.Api.Repository
 {
-    public class BaseRepository<TEntity> //: IJobRepository
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         where TEntity : BaseEntity, new()
     {
         private readonly DataContext _dataContext;

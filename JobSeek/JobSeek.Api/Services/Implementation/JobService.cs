@@ -8,9 +8,9 @@ namespace JobSeek.Api.Services.Implementation
 {
     public class JobService : IJobSerivce
     {
-        private readonly IJobRepository _repository;
+        private readonly IBaseRepository _repository;
 
-        public JobService(IJobRepository repository) 
+        public JobService(IBaseRepository repository) 
         {
             _repository = repository;
         }
