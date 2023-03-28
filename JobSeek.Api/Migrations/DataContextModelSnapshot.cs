@@ -37,12 +37,12 @@ namespace JobSeek.Api.Migrations
                     b.Property<DateTimeOffset>("CreationDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("Degree")
-                        .HasColumnType("int");
-
                     b.Property<string>("Details")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Education")
+                        .HasColumnType("int");
 
                     b.Property<int>("EmployerId")
                         .HasColumnType("int");
@@ -210,32 +210,6 @@ namespace JobSeek.Api.Migrations
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("JobSeek.Api.Models.TestEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTimeOffset>("CreationDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset>("ModificationDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TestEntities");
-                });
-
             modelBuilder.Entity("JobSeek.Api.Models.Entities.Employee", b =>
                 {
                     b.HasBaseType("JobSeek.Api.Models.Entities.User");
@@ -243,7 +217,7 @@ namespace JobSeek.Api.Migrations
                     b.Property<DateTimeOffset>("BirthDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("Degree")
+                    b.Property<int>("Education")
                         .HasColumnType("int");
 
                     b.Property<string>("FirstName")
@@ -257,13 +231,13 @@ namespace JobSeek.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MajoringIn")
-                        .HasColumnType("int");
-
                     b.Property<int>("MaritalStatus")
                         .HasColumnType("int");
 
                     b.Property<int>("MilitaryService")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SeniorityLevel")
                         .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("Employee");
