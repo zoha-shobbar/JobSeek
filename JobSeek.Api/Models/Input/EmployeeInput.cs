@@ -10,7 +10,7 @@ namespace JobSeek.Api.Models.Input
         public SeniorityLevel Degree { get; set; }
         public DateTimeOffset BirthDate { get; set; }
         public Gender Gender { get; set; }
-        public MaterialStatus MaritalStatus { get; set; }
+        public  MaritalStatus Marital { get; set; }
         public MilitaryService MilitaryService { get; set; }
 
     }
