@@ -1,5 +1,6 @@
 ﻿using JobSeek.Api.Models.Entities;
 using JobSeek.Api.Models.Input;
+using JobSeek.Api.Repository.Contracts;
 using JobSeek.Api.Services.Contracts;
 using Mapster;
 
@@ -7,47 +8,47 @@ namespace JobSeek.Api.Services.Implementation
 {
     public class EmployeeService : IEmployeeService
     {
-        private readonly IEmployeeService _employee;
+        private readonly IEmployeeRepository _repository;
 
-        public EmployeeService(IEmployeeService employee)
+        public EmployeeService(IEmployeeRepository repository)
         {
-            _employee = employee;
+            _repository = repository;
         }
         public List<Employee> GetAll()
         {
-           return _employee.GetAll();
+           return _repository.GetAll();
         }
 
         public Employee GetById(int id)
         {
-           return _employee.GetById(id);
+           return _repository.GetById(id);
         }
         public Employee Create(EmployeeInput input)
         {
             var entity = input.Adapt<Employee>();
 
-            return _employee.Create(entity);
+            return _repository.Create(entity);
         }
 
         public bool Delete(int id)
         {
-            var entity = _employee.GetById(id);
+            var entity = _repository.GetById(id);
             if (entity == null)
                 throw new Exception("this is not found!");
-            return _employee.Delete(id);
+            return _repository.Delete(id);
         }
 
 
         public Employee Update(int id, EmployeeInput input)
         {
-            var existedEntity = _employee.GetById(id);
+            var existedEntity = _repository.GetById(id);
 
             if (existedEntity == null)
                 throw new Exception("this is not found!");
 
             Employee entity = input.Adapt<Employee>();
 
-            return _employee.Update(id, entity);
+            return _repository.Update(id, entity);
         }
     }
 }

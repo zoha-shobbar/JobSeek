@@ -55,7 +55,7 @@ namespace JobSeek.Api.Repository
             _dataContext.SaveChanges();
             return employee;
         }
-        public Employee Delete(int id)
+        public bool Delete(int id)
         {
             var employee = _dataContext.Employees
                 .Where(x => x.Id == id)
@@ -64,7 +64,7 @@ namespace JobSeek.Api.Repository
             _dataContext.Employees.Remove(employee);
             _dataContext.SaveChanges();
 
-            return employee;
+            return true;
         }
 
 

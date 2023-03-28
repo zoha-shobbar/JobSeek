@@ -21,6 +21,9 @@ builder.Services.AddScoped<IJobCategoryRepository, JobCategoryRepository>();
 builder.Services.AddScoped<IJobCategoryService, JobCategoryService>();
 
 
+builder.Services.AddScoped<IEmployeeRepository, EmploeeRepository>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+
 var app = builder.Build();
 
 var dbContext = app.Services.GetRequiredService<IDbContextFactory<DataContext>>();

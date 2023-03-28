@@ -8,6 +8,6 @@ namespace JobSeek.Api.Repository.Contracts
         Employee GetById(int id);
         Employee Create(Employee input);
         Employee Update(int id, Employee input);
-        Employee Delete(int id);
+        bool Delete(int id);
     }
 }
