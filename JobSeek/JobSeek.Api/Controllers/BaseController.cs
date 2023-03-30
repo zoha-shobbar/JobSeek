@@ -37,6 +37,9 @@ namespace JobSeek.Api.Controllers
         {
             return _service.Set<TEntity>(entity);
         }
-
+        public TEntity Delete(int id)
+        {
+            return _service.Set<TEntity>(id);
+        }
     }
 }
