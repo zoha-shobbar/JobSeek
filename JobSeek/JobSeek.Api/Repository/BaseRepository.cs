@@ -7,46 +7,49 @@ namespace JobSeek.Api.Repository
     public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         where TEntity : BaseEntity, new()
     {
-        private readonly DataContext _dataContext;
+        private readonly DataContext _dbcontext;
 
-        public BaseRepository(DataContext dataContext)
+        public BaseRepository(DataContext context)
         {
-            _dataContext = dataContext;
+            _dbcontext = context;
         }
         public List<TEntity> GetAll()
         {
-            return _dataContext.Set<TEntity>().ToList();
+            return _dbcontext.Set<TEntity>().ToList();
         }
 
         public TEntity GetById(int id)
         {
-            var entity = _dataContext.Set<TEntity>().Where(x => x.Id == id).FirstOrDefault();
+            var entity = _dbcontext.Set<TEntity>()
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
             return entity;
         }
-        public TEntity Create(TEntity entity)
+        public TEntity Create(TEntity input)
         {
-            _dataContext.Set<TEntity>().Add(entity);
-            _dataContext.SaveChanges();
-            return entity;
+            _dbcontext.Set<TEntity>().Add(input);
+            _dbcontext.SaveChanges();
+            return input;
 
         }
-
         public bool Delete(int id)
         {
-            var entity = _dataContext.Set<TEntity>().Where(x => x.Id == id).FirstOrDefault();
-            _dataContext.Set<TEntity>().Remove(entity);
-            _dataContext.SaveChanges();
+            var entity = _dbcontext.Set<TEntity>()
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
+            _dbcontext.Set<TEntity>().Remove(entity);
+            _dbcontext.SaveChanges();
             return true;
         }
-
-
-        public TEntity Update(int id, TEntity entity)
+        public TEntity Update(int id, TEntity input)
         {
-            var jobs = _dataContext.Set<TEntity>().Where(x => x.Id == id).FirstOrDefault();
+            var entity = _dbcontext.Set<TEntity>()
+              .Where(x => x.Id == id)
+              .FirstOrDefault();
 
-            _dataContext.Set<TEntity>().Update(jobs);
-            _dataContext.SaveChanges();
-            return jobs;
+            _dbcontext.Set<TEntity>().Update(entity);
+            _dbcontext.SaveChanges();
+            return input;
         }
     }
 }
