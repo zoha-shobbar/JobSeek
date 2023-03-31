@@ -8,7 +8,8 @@ namespace JobSeek.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BaseController<TEntity, TInput> : ControllerBase
+    public class BaseController< TServuce,TEntity, TInput> : ControllerBase
+        where TServuce : IBaseSerivce<TEntity, TInput>
         where TEntity :BaseEntity ,new()
         where TInput : class ,new()       
     {
