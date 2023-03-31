@@ -17,9 +17,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContextFactory<DataContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IJobCategoryRepository, JobCategoryRepository>();
-builder.Services.AddScoped<IJobCategoryService, JobCategoryService>();
-
+builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+builder.Services.AddScoped(typeof(IBaseService<,>), typeof(BaseService<,>));
 
 var app = builder.Build();
 
