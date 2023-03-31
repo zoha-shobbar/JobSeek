@@ -29,11 +29,16 @@ namespace JobSeek.Api.Controllers
             return service.GetById(id);
         }
 
-
         [HttpPost]
         public JobCategory Create(JobCategoryInput input)
         {
-            throw new NotImplementedException();
+            return service.Create(input);
+        }
+
+        [HttpPut]
+        public JobCategory Update(int id, JobCategoryInput input)
+        {
+            return service.Update(id, input);
         }
 
         //deleted api
@@ -42,12 +47,5 @@ namespace JobSeek.Api.Controllers
         {
             return service.Delete(id);
         }
-
-        [HttpPut]
-        public JobCategory Update(int id, JobCategoryInput input)
-        {
-            return service.Update(id,input);
-        }
-
     }
 }

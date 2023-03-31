@@ -1,4 +1,5 @@
-﻿using JobSeek.Api.Models.Entities.Common;
+﻿using JobSeek.Api.Models.Entities;
+using JobSeek.Api.Models.Entities.Common;
 
 namespace JobSeek.Api.Repository.Contracts
 {
@@ -7,8 +8,11 @@ namespace JobSeek.Api.Repository.Contracts
     {
         List<TEntity> GetAll();
         TEntity GetById(int id);
-        bool Delete(int id);
         TEntity Create(TEntity input);
-        TEntity Update(int id, TEntity job);
+        TEntity Update(int id, TEntity input);
+        bool Delete(int id);
     }
 }
+
+
+
