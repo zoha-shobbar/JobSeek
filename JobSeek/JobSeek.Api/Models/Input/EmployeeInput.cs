@@ -12,6 +12,5 @@ namespace JobSeek.Api.Models.Input
         public Gender Gender { get; set; }
         public MaterialStatus MaritalStatus { get; set; }
         public MilitaryService MilitaryService { get; set; }
-
     }
 }

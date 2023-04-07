@@ -12,11 +12,18 @@ namespace JobSeek.Api.Services.Implementation
         where TInput : class
     {
         private readonly IBaseRepository<TEntity> _repository;
+        private IBaseService<Job, Models.Input.JobInput> repository;
 
         public BaseService(IBaseRepository<TEntity> repository)
         {
             _repository = repository;
         }
+
+        public BaseService(IBaseService<Job, Models.Input.JobInput> repository)
+        {
+            this.repository = repository;
+        }
+
         public List<TEntity> GetAll()
         {
             return _repository.GetAll();
