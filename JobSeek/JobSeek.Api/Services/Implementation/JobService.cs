@@ -30,5 +30,25 @@ namespace JobSeek.Api.Services.Implementation
             return _repository.Create(job);
 
         }
+
+        public Job Update(int id, JobInput input)
+        {
+            var job = input.Adapt<Job>();
+            var jobId = _repository.GetById(id);
+            if (jobId == null || jobId.Id != job.Id)
+                throw new Exception("There is no ID!");
+            var DateNow = DateTimeOffset.Now;
+            if (DateNow < job.ExpireDate)
+                throw new Exception("The expiration date cannot be in the past");
+            return _repository.Update(id, job);
+        }
+        public bool Delete(int id)
+        {
+            var JobId = _repository.GetById(id);
+            if (JobId != null)
+                return true;
+            else
+                return false;
+        }
     }
 }
