@@ -21,6 +21,13 @@ namespace JobSeek.Api.Services.Implementation
         {
             return _repository.GetAll();
         }
+
+        public List<TCustomEntity> GetAll<TCustomEntity>() 
+            where TCustomEntity : BaseEntity
+        {
+            return _repository.GetAll<TCustomEntity>();
+        }
+
         public TEntity GetById(int id)
         {
             return _repository.GetById(id);
