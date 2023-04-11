@@ -7,6 +7,7 @@ namespace JobSeek.Api.Repository.Contracts
         where TEntity : BaseEntity, new()
     {
         List<TEntity> GetAll();
+        List<TCustomEntity> GetAll<TCustomEntity>() where TCustomEntity : BaseEntity;
         TEntity GetById(int id);
         TEntity Create(TEntity input);
         TEntity Update(int id, TEntity input);

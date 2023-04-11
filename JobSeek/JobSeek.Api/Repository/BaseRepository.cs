@@ -17,6 +17,11 @@ namespace JobSeek.Api.Repository
         {
             return _dbcontext.Set<TEntity>().ToList();
         }
+        public List<TCustomEntity> GetAll<TCustomEntity>()
+            where TCustomEntity : BaseEntity
+        {
+            return _dbcontext.Set<TCustomEntity>().ToList();
+        }
 
         public TEntity GetById(int id)
         {
