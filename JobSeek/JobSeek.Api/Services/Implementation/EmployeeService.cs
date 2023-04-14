@@ -16,7 +16,7 @@ namespace JobSeek.Api.Services.Implementation
         {
             _repository = repository;
         }
-        public Employee Create (EmployeeInput input)
+        public Employee Create(EmployeeInput input)
         {
             //Validate Email
             Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
@@ -25,7 +25,7 @@ namespace JobSeek.Api.Services.Implementation
                 throw new Exception("Your email is incorrect!");
 
             //Validate Phone Number
-            Regex PhoneNumRegex = new Regex(@"^\(?([0-9]{4})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$");
+            Regex PhoneNumRegex = new Regex(@"^((\+98|0)9\d{9})$");
             Match PhoneMatch = PhoneNumRegex.Match(input.PhoneNumber);
             if (input.PhoneNumber != null && PhoneMatch.Success != true)
                 throw new Exception("Your Phone number is incorrect!");
@@ -42,11 +42,27 @@ namespace JobSeek.Api.Services.Implementation
 
         }
 
-        public Employee Update(int id,EmployeeInput input) 
+        public Employee Update(int id, EmployeeInput input)
         {
             var isPhoneExist = GetAll()
                 .Where(x => x.PhoneNumber == input.PhoneNumber && x.Id != id)
-                .Any(); 
+                .Any();
+            if (isPhoneExist) throw new Exception("Your email is already in use");
+
+
+            var isEmailExist = GetAll()
+                .Where(x => x.Email == input.Email && x.Id != id)
+                .Any();
+            if (isEmailExist) throw new Exception("Your email is already in use");
+
+            var employee = input.Adapt<Employee>();
+            return employee;
+        }
+        public bool Delete(int id)
+        {
+            var EmployeeExist = GetAll<JobEmployee>().Where(x => x.EmployeeId == id).Any();
+            if (EmployeeExist) throw new Exception("alredy in use");
+            return Delete(id);
         }
     }
 }
