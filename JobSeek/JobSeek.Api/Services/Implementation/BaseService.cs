@@ -1,6 +1,4 @@
-﻿using JobSeek.Api.Models.Entities;
-using JobSeek.Api.Models.Entities.Common;
-using JobSeek.Api.Models.Input;
+﻿using JobSeek.Api.Models.Entities.Common;
 using JobSeek.Api.Repository.Contracts;
 using JobSeek.Api.Services.Contracts;
 using Mapster;

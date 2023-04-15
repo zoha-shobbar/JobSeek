@@ -1,8 +1,6 @@
 ﻿using JobSeek.Api.Models.Entities;
 using JobSeek.Api.Models.Input;
 using JobSeek.Api.Repository.Contracts;
-using Mapster;
-using NuGet.Protocol.Core.Types;
 using System.Data;
 using System.Text.RegularExpressions;
 

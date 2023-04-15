@@ -1,7 +1,6 @@
 ﻿using JobSeek.Api.Models.Entities;
 using JobSeek.Api.Models.Input;
 using JobSeek.Api.Services.Contracts;
-using Microsoft.AspNetCore.Mvc;
 
 namespace JobSeek.Api.Controllers
 {
