@@ -39,7 +39,7 @@ namespace JobSeek.Api.Services.Implementation
 
             var isRegisterIdExist = GetAll()
                .Where(x => x.RegisterId == input.RegisterId && x.Id != id)
-               .Count();
+               .Any();
             Regex regex = new Regex(@"[\d]");
 
             if (input.RegisterId.ToString().Trim().Length >= 2 && regex.IsMatch(input.RegisterId)) throw new Exception("The desired RegisterId is allowed");
