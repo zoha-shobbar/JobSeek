@@ -93,7 +93,7 @@ namespace JobSeek.Api.Migrations
 
                     b.HasIndex("JobCategoryId");
 
-                    b.ToTable("Jobs");
+                    b.ToTable("Jobs", (string)null);
                 });
 
             modelBuilder.Entity("JobSeek.Api.Models.Entities.JobCategory", b =>
@@ -123,7 +123,7 @@ namespace JobSeek.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("JobCategories");
+                    b.ToTable("JobCategories", (string)null);
                 });
 
             modelBuilder.Entity("JobSeek.Api.Models.Entities.JobEmployee", b =>
@@ -158,7 +158,7 @@ namespace JobSeek.Api.Migrations
 
                     b.HasIndex("JobId");
 
-                    b.ToTable("JobEmployees");
+                    b.ToTable("JobEmployees", (string)null);
                 });
 
             modelBuilder.Entity("JobSeek.Api.Models.Entities.User", b =>
@@ -203,7 +203,7 @@ namespace JobSeek.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("users");
+                    b.ToTable("users", (string)null);
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
 

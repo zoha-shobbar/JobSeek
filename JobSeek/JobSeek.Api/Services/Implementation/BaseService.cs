@@ -30,12 +30,14 @@ namespace JobSeek.Api.Services.Implementation
         {
             return _repository.GetById(id);
         }
-        public TEntity Create(TInput input)
+        
+        public virtual TEntity Create(TInput input)
         {
             var entity = input.Adapt<TEntity>();
 
             return _repository.Create(entity);
         }
+
         public TEntity Update(int id, TInput input)
         {
             var existedEntity = _repository.GetById(id);

@@ -20,6 +20,8 @@ builder.Services.AddDbContextFactory<DataContext>(
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped(typeof(IBaseService<,>), typeof(BaseService<,>));
 
+builder.Services.AddScoped<IEmployerService, EmployerService>();
+
 var app = builder.Build();
 
 var dbContext = app.Services.GetRequiredService<IDbContextFactory<DataContext>>();
