@@ -11,41 +11,41 @@ namespace JobSeek.Api.Controllers
         where TEntity : BaseEntity, new()
         where TInput : class
     {
-        private readonly TService _servcie;
+        private readonly TService _service;
 
         public BaseController(TService service)
         {
-            _servcie = service;
+            _service = service;
         }
 
         [HttpGet]
         public List<TEntity> Get()
         {
-            return _servcie.GetAll();
+            return _service.GetAll();
         }
 
         [HttpGet("id")]
         public TEntity Get(int id)
         {
-            return _servcie.GetById(id);
+            return _service.GetById(id);
         }
 
         [HttpPost]
         public TEntity Create(TInput input)
         {
-            return _servcie.Create(input);
+            return _service.Create(input);
         }
 
         [HttpPut]
         public TEntity Update(int id, TInput input)
         {
-            return _servcie.Update(id, input);
+            return _service.Update(id, input);
         }
 
         [HttpDelete]
         public bool Delete(int id)
         {
-            return _servcie.Delete(id);
+            return _service.Delete(id);
         }
     }
 }

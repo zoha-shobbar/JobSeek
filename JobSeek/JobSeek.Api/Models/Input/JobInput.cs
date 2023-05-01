@@ -15,7 +15,7 @@ namespace JobSeek.Api.Models.Input
         public decimal WorkExperience { get; set; }
         public Workplace Workplace { get; set; }
         public string Advantages { get; set; }
-        public Education Degree { get; set; }
+        public Education Education { get; set; }
         public SeniorityLevel SeniorityLevel { get; set; }
         public IndustryType IndustryType { get; set; }
         public JobCategory JobCategory { get; set; }
