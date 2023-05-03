@@ -1,5 +1,4 @@
 using JobSeek.Api.Data;
-using JobSeek.Api.Models.Entities;
 using JobSeek.Api.Repository;
 using JobSeek.Api.Repository.Contracts;
 using JobSeek.Api.Services.Contracts;
@@ -19,6 +18,9 @@ builder.Services.AddDbContextFactory<DataContext>(
 
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped(typeof(IBaseService<,>), typeof(BaseService<,>));
+
+builder.Services.AddScoped<IEmployerService, EmployerService>();
+
 
 var app = builder.Build();
 
