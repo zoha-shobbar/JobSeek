@@ -2,6 +2,7 @@
 using JobSeek.Api.Models.Input;
 using JobSeek.Api.Repository.Contracts;
 using JobSeek.Api.Services.Contracts;
+using Mapster;
 using System.Data;
 using System.Text.RegularExpressions;
 
@@ -36,7 +37,7 @@ namespace JobSeek.Api.Services.Implementation
             Regex regexAddress = new Regex(@"^[\w\s\d.,#-]+$");
             if (!regexAddress.IsMatch(input.Address)) throw new Exception("the address is invalid");
 
-            Regex regexCompanylicenseNumber = new Regex(@"^\d{3}-\d{2}-\d{5}$");
+            Regex regexCompanylicenseNumber = new Regex(@"^(\d{2})(\d{3})(\d{7})$");
             if (!regexCompanylicenseNumber.IsMatch(input.CompanyLicenseNumber))
                 throw new Exception("the companyLicenseNumber is invalid");
 
@@ -51,6 +52,8 @@ namespace JobSeek.Api.Services.Implementation
             Regex regexCompanyName = new Regex(@"^[آ-ی\s]+$");
             if (!regexCompanyName.IsMatch(input.CompanyName))
                 throw new Exception("the companyName is invalid");
+
+            var entity = input.Adapt<Employer>();
 
             return Create(input);
         }
@@ -84,7 +87,7 @@ namespace JobSeek.Api.Services.Implementation
             Regex regexAddress = new Regex(@"^[\w\s\d.,#-]+$");
             if (!regexAddress.IsMatch(input.Address)) throw new Exception("the address is invalid");
 
-            Regex regexCompanylicenseNumber = new Regex(@"^\d{3}-\d{2}-\d{5}$");
+            Regex regexCompanylicenseNumber = new Regex(@"^(\d{2})(\d{3})(\d{7})$");
             if (!regexCompanylicenseNumber.IsMatch(input.CompanyLicenseNumber))
                 throw new Exception("the companyLicenseNumber is invalid");
 
@@ -99,6 +102,8 @@ namespace JobSeek.Api.Services.Implementation
             Regex regexCompanyName = new Regex(@"^[آ-ی\s]+$");
             if (!regexCompanyName.IsMatch(input.CompanyName))
                 throw new Exception("the companyName is invalid");
+
+            var entity = input.Adapt<Employer>();
 
             return Update(id, input);
         }
