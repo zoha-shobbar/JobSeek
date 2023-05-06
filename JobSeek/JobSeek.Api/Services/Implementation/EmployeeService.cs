@@ -1,9 +1,7 @@
 ﻿using JobSeek.Api.Models.Entities;
 using JobSeek.Api.Models.Input;
 using JobSeek.Api.Repository.Contracts;
-using JobSeek.Api.Services.Contracts;
 using Mapster;
-using Microsoft.CodeAnalysis.Differencing;
 using System.Text.RegularExpressions;
 
 namespace JobSeek.Api.Services.Implementation
@@ -30,12 +28,26 @@ namespace JobSeek.Api.Services.Implementation
             if (input.PhoneNumber != null && PhoneMatch.Success != true)
                 throw new Exception("Your Phone number is incorrect!");
 
+            //validate nationalcode 
+            Regex NationalCodeRegex = new Regex(@"^[0-9]{10}$");
+            Match NationalCodeMatch = NationalCodeRegex.Match(input.NatioanlCode);
+            if (input.NatioanlCode.Length != 10 && NationalCodeMatch.Success != true)
+                throw new Exception("The national code is not correct!");
+
+            //ckeck birthday
+            if (input.BirthDate <= DateTimeOffset.Now)
+                throw new Exception("Enter the date of birth correctly");
+
+
 
             var email = GetAll().Where(x => x.Email == input.Email).Any();
             if (email) throw new Exception("email already exist");
 
             var phoneNumber = GetAll().Where(x => x.PhoneNumber == input.PhoneNumber).Any();
             if (phoneNumber) throw new Exception("Phone Number already exists");
+
+            var nationalcode = GetAll().Where(x => x.NatioanlCode == input.NatioanlCode).Any();
+            if (nationalcode) throw new Exception("nationalcode already exists");
 
             var employee = input.Adapt<Employee>();
             return _repository.Create(employee);
