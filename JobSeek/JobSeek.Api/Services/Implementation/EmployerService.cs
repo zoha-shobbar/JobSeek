@@ -53,8 +53,6 @@ namespace JobSeek.Api.Services.Implementation
             if (!regexCompanyName.IsMatch(input.CompanyName))
                 throw new Exception("the companyName is invalid");
 
-            var entity = input.Adapt<Employer>();
-
             return Create(input);
         }
 
@@ -102,8 +100,6 @@ namespace JobSeek.Api.Services.Implementation
             Regex regexCompanyName = new Regex(@"^[آ-ی\s]+$");
             if (!regexCompanyName.IsMatch(input.CompanyName))
                 throw new Exception("the companyName is invalid");
-
-            var entity = input.Adapt<Employer>();
 
             return Update(id, input);
         }
