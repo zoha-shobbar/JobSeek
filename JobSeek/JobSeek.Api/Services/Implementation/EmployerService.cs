@@ -2,7 +2,6 @@
 using JobSeek.Api.Models.Input;
 using JobSeek.Api.Repository.Contracts;
 using JobSeek.Api.Services.Contracts;
-using Mapster;
 using System.Data;
 using System.Text.RegularExpressions;
 
