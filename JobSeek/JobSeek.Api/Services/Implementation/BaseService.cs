@@ -20,7 +20,7 @@ namespace JobSeek.Api.Services.Implementation
             return _repository.GetAll();
         }
 
-        public List<TCustomEntity> GetAll<TCustomEntity>() 
+        public List<TCustomEntity> GetAll<TCustomEntity>()
             where TCustomEntity : BaseEntity
         {
             return _repository.GetAll<TCustomEntity>();
@@ -30,13 +30,15 @@ namespace JobSeek.Api.Services.Implementation
         {
             return _repository.GetById(id);
         }
-        public TEntity Create(TInput input)
+
+        public virtual TEntity Create(TInput input)
         {
             var entity = input.Adapt<TEntity>();
 
             return _repository.Create(entity);
         }
-        public TEntity Update(int id, TInput input)
+
+        public virtual TEntity Update(int id, TInput input)
         {
             var existedEntity = _repository.GetById(id);
 
@@ -47,7 +49,8 @@ namespace JobSeek.Api.Services.Implementation
 
             return _repository.Update(id, entity);
         }
-        public bool Delete(int id)
+
+        public virtual bool Delete(int id)
         {
             var existedEntity = _repository.GetById(id);
 
