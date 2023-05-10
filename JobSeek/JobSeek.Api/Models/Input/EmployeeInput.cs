@@ -1,4 +1,5 @@
 ﻿using JobSeek.Api.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace JobSeek.Api.Models.Input
 {

@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace JobSeek.Api.Controllers
 {
 
-    public class EmployeeController : BaseController<IBaseService<Employee, EmployeeInput>, Employee, EmployeeInput>
+    public class EmployeeController : BaseController<IEmployeeService, Employee, EmployeeInput>
     {
-        public EmployeeController(IBaseService<Employee, EmployeeInput> service) : base(service)
+        public EmployeeController(IEmployeeService service) : base(service)
         {
         }
     }
