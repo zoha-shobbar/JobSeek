@@ -1,4 +1,5 @@
 ﻿using JobSeek.Api.Enums;
+using JobSeek.Api.Validations;
 using System.ComponentModel.DataAnnotations;
 
 namespace JobSeek.Api.Models.Input
@@ -13,6 +14,9 @@ namespace JobSeek.Api.Models.Input
         public Gender Gender { get; set; }
         public MaterialStatus MaritalStatus { get; set; }
         public MilitaryService MilitaryService { get; set; }
+
+        [Required(ErrorMessage ="Invalid National Code")]
+        [NationalCodeValidate]
         public string NatioanlCode { get; set; }
     }
 }

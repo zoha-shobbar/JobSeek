@@ -17,24 +17,10 @@ namespace JobSeek.Api.Services.Implementation
         }
         public Employee Create(EmployeeInput input)
         {
-            //Validate Email
-            EmailValidate checkEmail = new();
-            checkEmail.IsValid(input.Email);
-
-
-            //Validate Phone Number
-            PhoneNumValidate checkPhoneNum = new();
-            checkPhoneNum.IsValid(input.PhoneNumber);
-
-            //validate nationalcode 
-            NationalCodeValidate checkNationalCode = new NationalCodeValidate();
-            checkNationalCode.IsValid(input.NatioanlCode);
-
+            
             //ckeck birthday
             if (input.BirthDate <= DateTimeOffset.Now)
                 throw new Exception("Enter the date of birth correctly");
-
-
 
             var email = GetAll().Where(x => x.Email == input.Email).Any();
             if (email) throw new Exception("email already exist");
@@ -52,20 +38,7 @@ namespace JobSeek.Api.Services.Implementation
 
         public Employee Update(int id, EmployeeInput input)
         {
-            //Validate Email
-            EmailValidate checkEmail = new();
-            checkEmail.IsValid(input.Email);
-
-
-            //Validate Phone Number
-            PhoneNumValidate checkPhoneNum = new();
-            checkPhoneNum.IsValid(input.PhoneNumber);
-
-            //validate nationalcode 
-            NationalCodeValidate checkNationalCode = new NationalCodeValidate();
-            checkNationalCode.IsValid(input.NatioanlCode);
-
-
+           
             //Phone Number
             var isPhoneExist = GetAll()
                 .Where(x => x.PhoneNumber == input.PhoneNumber && x.Id != id)
