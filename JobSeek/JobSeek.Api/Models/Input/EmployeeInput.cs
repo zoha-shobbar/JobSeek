@@ -10,13 +10,14 @@ namespace JobSeek.Api.Models.Input
         public string LastName { get; set; }
         public Education MajoringIn { get; set; }
         public SeniorityLevel Degree { get; set; }
+
+        [BirthDay]
         public DateTimeOffset BirthDate { get; set; }
         public Gender Gender { get; set; }
         public MaterialStatus MaritalStatus { get; set; }
         public MilitaryService MilitaryService { get; set; }
 
-        [Required(ErrorMessage ="Invalid National Code")]
-        [NationalCodeValidate]
+        [NationalCode]
         public string NatioanlCode { get; set; }
     }
 }

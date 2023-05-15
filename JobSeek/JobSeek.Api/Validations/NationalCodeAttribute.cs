@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 namespace JobSeek.Api.Validations
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class NationalCodeValidate:ValidationAttribute
+    public class NationalCodeAttribute:ValidationAttribute
     {
         public override bool IsValid(object? value)
         {

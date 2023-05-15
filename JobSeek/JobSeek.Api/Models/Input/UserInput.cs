@@ -7,14 +7,12 @@ namespace JobSeek.Api.Models.Input
     public abstract class UserInput
     {
 
-        [EmailAddress(ErrorMessage ="Invalid Email Address")]
+        [EmailAddress]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "invalid Phone number ")]
-        [PhoneNumValidate]
+        [PhoneNum]
         public string PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "Password is required")]
         [StringLength(12,ErrorMessage = "invalid Password", MinimumLength =4)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
