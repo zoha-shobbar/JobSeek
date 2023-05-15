@@ -15,7 +15,7 @@ namespace JobSeek.Api.Services.Implementation
             var employer = GetAll()
                 .Where(x => x.RegisterId == input.RegisterId)
                 .Any();
-            if (employer) throw new Exception("the RegisterId alredy exist");
+            if (employer) throw new Exception("the employer alredy exist");
 
             return Create(input);
         }

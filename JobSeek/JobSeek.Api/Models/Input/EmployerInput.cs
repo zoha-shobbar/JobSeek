@@ -5,7 +5,6 @@ namespace JobSeek.Api.Models.Input
 {
     public class EmployerInput : UserInput
     {
-        [DataType(DataType.Text)]
         public string CompanyName { get; set; }
         [RegisterId]
         public string RegisterId { get; set; }
