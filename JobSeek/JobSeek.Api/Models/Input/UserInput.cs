@@ -11,7 +11,7 @@ namespace JobSeek.Api.Models.Input
         public string Email { get; set; }
         [PhoneNum]
         public string PhoneNumber { get; set; }
-        [StringLength(12,ErrorMessage = "invalid Password", MinimumLength =4)]
+        [StringLength(12,ErrorMessage = "Maximum length is 12 and Minimum Length is 4", MinimumLength =4)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
         public string Address { get; set; }

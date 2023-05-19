@@ -8,8 +8,9 @@ namespace JobSeek.Api.Validations
         public bool IsValid(object? value)
         {
             if ((DateTime)value > DateTime.Now)
-                return true;
-            return false;
+                return false;
+
+            return true;
         }
     }
 }
