@@ -9,10 +9,8 @@ namespace JobSeek.Api.Models.Input
 
         [EmailAddress]
         public string Email { get; set; }
-
         [PhoneNum]
         public string PhoneNumber { get; set; }
-
         [StringLength(12,ErrorMessage = "invalid Password", MinimumLength =4)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
