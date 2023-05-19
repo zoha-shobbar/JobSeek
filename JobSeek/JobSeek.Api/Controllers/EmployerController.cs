@@ -20,5 +20,29 @@ namespace JobSeek.Api.Controllers
         {
             return _service.GetAllData();
         }
+
+        [HttpGet("[action]")]
+        public SingleRespons<Employer> GetByIdData(int id)
+        {
+            return _service.GetByIdData(id);
+        }
+
+        [HttpPost("[action]")]
+         public ListRespons<Employer> CreateData(Employer input)
+         {
+            return CreateData(input);
+         }
+
+        [HttpPut("[action]")]
+        ListRespons<Employer> UpdateData(int id, EmployerInput input)
+        {
+           return _service.UpdateData(id,input);
+        }
+
+        [HttpDelete("[action]")]
+        SingleRespons<Employer> DeleteData(int id)
+        {
+            return _service.DeleteData(id);
+        }
     }
 }
