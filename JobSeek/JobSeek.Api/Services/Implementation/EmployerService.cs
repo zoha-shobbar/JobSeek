@@ -1,7 +1,10 @@
 ﻿using JobSeek.Api.Models.Entities;
+using JobSeek.Api.Models.Entities.Common;
 using JobSeek.Api.Models.Input;
 using JobSeek.Api.Repository.Contracts;
+using JobSeek.Api.Responses;
 using JobSeek.Api.Services.Contracts;
+using NuGet.Protocol.Core.Types;
 using System.Data;
 
 namespace JobSeek.Api.Services.Implementation
@@ -10,6 +13,7 @@ namespace JobSeek.Api.Services.Implementation
     {
         public EmployerService(IBaseRepository<Employer> repository) : base(repository)
         { }
+
         public override Employer Create(EmployerInput input)
         {
             var employer = GetAll()
@@ -48,6 +52,16 @@ namespace JobSeek.Api.Services.Implementation
             if (Employer) throw new Exception("alredy in use");
 
             return Delete(id);
+        }
+
+        public ListRespons<Employer> GetAllData()
+        {
+            var result = GetAll();
+
+            if (!result.Any())
+                return ListRespons<Employer>.Failed(ResponsStatus.NotFound);
+
+            return ListRespons<Employer>.Success(result);
         }
     }
 }
