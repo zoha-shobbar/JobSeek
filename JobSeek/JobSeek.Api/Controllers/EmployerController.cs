@@ -34,13 +34,13 @@ namespace JobSeek.Api.Controllers
          }
 
         [HttpPut("[action]")]
-        ListRespons<Employer> UpdateData(int id, EmployerInput input)
+        public ListRespons<Employer> UpdateData(int id, EmployerInput input)
         {
            return _service.UpdateData(id,input);
         }
 
         [HttpDelete("[action]")]
-        SingleRespons<Employer> DeleteData(int id)
+        public SingleRespons<Employer> DeleteData(int id)
         {
             return _service.DeleteData(id);
         }
