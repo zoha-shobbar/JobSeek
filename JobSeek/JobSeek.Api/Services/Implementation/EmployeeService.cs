@@ -20,13 +20,16 @@ namespace JobSeek.Api.Services.Implementation
         {
             
             var email = GetAll().Where(x => x.Email == input.Email).Any();
-            if (email) throw new Exception("email already exist");
+            if (email)
+                SingleResponse<Employee>.Failed(ResponseStatus.Faild);
 
             var phoneNumber = GetAll().Where(x => x.PhoneNumber == input.PhoneNumber).Any();
-            if (phoneNumber) throw new Exception("Phone Number already exists");
+            if (phoneNumber)
+                SingleResponse<Employee>.Failed(ResponseStatus.Faild);
 
             var nationalcode = GetAll().Where(x => x.NatioanlCode == input.NatioanlCode).Any();
-            if (nationalcode) throw new Exception("nationalcode already exists");
+            if (nationalcode)
+                SingleResponse<Employee>.Failed(ResponseStatus.Faild);
 
             var employee = input.Adapt<Employee>();
             return _repository.Create(employee);
@@ -68,7 +71,7 @@ namespace JobSeek.Api.Services.Implementation
         {
             var result =  GetAll();
             if (result == null)
-                return ListResponse<Employee>.Failed(ResponseStatus.NoutFound);
+                return ListResponse<Employee>.Failed(ResponseStatus.NotFound);
 
             return ListResponse<Employee>.Success(result);
         }

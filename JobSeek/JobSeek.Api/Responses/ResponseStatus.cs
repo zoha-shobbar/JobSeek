@@ -4,6 +4,6 @@ public enum ResponseStatus
 {
     Success,
     Faild,
-    NoutFound,
+    NotFound,
     UnknownError
 }
