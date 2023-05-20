@@ -12,6 +12,5 @@ namespace JobSeek.Api.Services.Contracts
         TEntity Create(TInput input);
         TEntity Update(int id, TInput input);
         bool Delete(int id);
-
     }
 }

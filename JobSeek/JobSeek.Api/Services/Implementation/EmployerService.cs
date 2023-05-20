@@ -11,45 +11,7 @@ namespace JobSeek.Api.Services.Implementation
     {
         public EmployerService(IBaseRepository<Employer> repository) : base(repository)
         { }
-        public override Employer Create(EmployerInput input)
-        {
-            var employer = GetAll()
-               .Where(x => x.RegisterId == input.RegisterId)
-               .Any();
-            if (employer) throw new Exception("the employer alredy exist");
-
-            return Create(input);
-        }
-
-        public override Employer Update(int id, EmployerInput input)
-        {
-            var existedEmployer = GetById(id);
-
-            if (existedEmployer == null) throw new Exception("not found!");
-
-            var isRegisterIdExist = GetAll()
-               .Where(x => x.RegisterId == input.RegisterId && x.Id != id)
-               .Any();
-
-            if (isRegisterIdExist) throw new Exception("the RegisterId alredy exist");
-
-            return Update(id, input);
-        }
-
-        public override bool Delete(int id)
-        {
-            var existedEmployer = GetById(id);
-
-            if (existedEmployer == null) throw new Exception("not found!");
-
-            var Employer = GetAll<Job>()
-                .Where(x => x.EmployerId == id)
-                .Any();
-
-            if (Employer) throw new Exception("alredy in use");
-
-            return Delete(id);
-        }
+    
 
         public ListRespons<Employer> GetAllData()
         {
@@ -60,6 +22,7 @@ namespace JobSeek.Api.Services.Implementation
 
             return ListRespons<Employer>.Success(result);
         }
+
         public SingleRespons<Employer> GetByIdData(int id)
         {
             var result = GetById(id);
@@ -75,9 +38,9 @@ namespace JobSeek.Api.Services.Implementation
                 .Where(x => x.RegisterId == input.RegisterId)
                 .Any();
             if (!employer)
-                return ListRespons<Employer>.Failed(ResponsStatus.NotFound);
+                return ListRespons<Employer>.Failed(ResponsStatus.NotFound); CreateData(input);
 
-            return CreateData(input);
+            return ListRespons<Employer>.Success(GetAll());
         }
 
         public ListRespons<Employer> UpdateData(int id, EmployerInput input)
@@ -90,9 +53,9 @@ namespace JobSeek.Api.Services.Implementation
                .Where(x => x.RegisterId == input.RegisterId && x.Id != id)
                .Any();
             if (!isRegisterIdExist)
-                return ListRespons<Employer>.Failed(ResponsStatus.NotFound);
+                return ListRespons<Employer>.Failed(ResponsStatus.NotFound); UpdateData(id, input);
 
-            return UpdateData(id, input);
+            return ListRespons<Employer>.Success(GetAll());
         }
 
         public SingleRespons<Employer> DeleteData(int id)
@@ -104,10 +67,10 @@ namespace JobSeek.Api.Services.Implementation
             var Employer = GetAll<Job>()
                 .Where(x => x.EmployerId == id)
                 .Any();
-            if (Employer)
-                return SingleRespons<Employer>.Failed(ResponsStatus.NotFound);
+            if (!Employer)
+                return SingleRespons<Employer>.Failed(ResponsStatus.NotFound); DeleteData(id);
 
-            return DeleteData(id);
+            return SingleRespons<Employer>.Success(existedEmployer);
         }
     }
 }
