@@ -58,5 +58,6 @@ namespace JobSeek.Api.Services.Implementation
 
             return _repository.Delete(id);
         }
+        
     }
 }

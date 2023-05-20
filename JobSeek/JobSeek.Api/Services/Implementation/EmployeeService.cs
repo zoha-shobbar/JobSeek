@@ -1,6 +1,7 @@
 ﻿using JobSeek.Api.Models.Entities;
 using JobSeek.Api.Models.Input;
 using JobSeek.Api.Repository.Contracts;
+using JobSeek.Api.Responses;
 using JobSeek.Api.Validations;
 using Mapster;
 using System.Text.RegularExpressions;
@@ -18,10 +19,6 @@ namespace JobSeek.Api.Services.Implementation
         public Employee Create(EmployeeInput input)
         {
             
-            //ckeck birthday
-            if (input.BirthDate <= DateTimeOffset.Now)
-                throw new Exception("Enter the date of birth correctly");
-
             var email = GetAll().Where(x => x.Email == input.Email).Any();
             if (email) throw new Exception("email already exist");
 
@@ -57,8 +54,6 @@ namespace JobSeek.Api.Services.Implementation
                 .Any();
             if (nationalcode) throw new Exception("nationalcode already exists");
 
-
-
             var employee = input.Adapt<Employee>();
             return employee;
         }
@@ -67,6 +62,15 @@ namespace JobSeek.Api.Services.Implementation
             var EmployeeExist = GetAll<JobEmployee>().Where(x => x.EmployeeId == id).Any();
             if (EmployeeExist) throw new Exception("alredy in use");
             return Delete(id);
+        }
+
+        public ListResponse<Employee> GetAllData()
+        {
+            var result =  GetAll();
+            if (result == null)
+                return ListResponse<Employee>.Failed(ResponseStatus.NoutFound);
+
+            return ListResponse<Employee>.Success(result);
         }
     }
 }
