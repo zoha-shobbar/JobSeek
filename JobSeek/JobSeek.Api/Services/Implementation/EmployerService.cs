@@ -52,7 +52,7 @@ namespace JobSeek.Api.Services.Implementation
                .Where(x => x.RegisterId == input.RegisterId && x.Id != id)
                .Any();
             if (isRegisterIdExist) 
-                ListRespons<Employer>.Failed(ResponsStatus.Success);
+              return  ListRespons<Employer>.Failed(ResponsStatus.Success);
                 
             return UpdateData(id, input);
         }
