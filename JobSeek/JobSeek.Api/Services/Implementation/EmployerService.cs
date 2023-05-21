@@ -3,6 +3,7 @@ using JobSeek.Api.Models.Input;
 using JobSeek.Api.Repository.Contracts;
 using JobSeek.Api.Responses;
 using JobSeek.Api.Services.Contracts;
+using Mapster;
 using System.Data;
 
 namespace JobSeek.Api.Services.Implementation
@@ -36,24 +37,23 @@ namespace JobSeek.Api.Services.Implementation
             var employer = GetAll()
                 .Where(x => x.RegisterId == input.RegisterId)
                 .Any();
-            if (employer)
-                return ListRespons<Employer>.Failed(ResponsStatus.Success); 
+            if (employer) return ListRespons<Employer>.Failed(ResponsStatus.UnknownError);
 
+            var entity = input.Adapt<Employer>();
             return CreateData(input);
         }
 
         public ListRespons<Employer> UpdateData(int id, EmployerInput input)
         {
             var existedEmployer = GetById(id);
-
-            if (existedEmployer == null) throw new Exception("not found!");
+            if (existedEmployer == null) return ListRespons<Employer>.Failed(ResponsStatus.NotFound);
 
             var isRegisterIdExist = GetAll()
                .Where(x => x.RegisterId == input.RegisterId && x.Id != id)
                .Any();
-            if (isRegisterIdExist) 
-              return  ListRespons<Employer>.Failed(ResponsStatus.Success);
-                
+            if (isRegisterIdExist) return ListRespons<Employer>.Failed(ResponsStatus.UnknownError);
+
+            var entity = input.Adapt<Employer>();
             return UpdateData(id, input);
         }
 
@@ -61,13 +61,12 @@ namespace JobSeek.Api.Services.Implementation
         {
             var existedEmployer = GetById(id);
 
-            if (existedEmployer == null) throw new Exception("not found!");
+            if (existedEmployer == null) return SingleRespons<Employer>.Failed(ResponsStatus.NotFound);
 
             var Employer = GetAll<Job>()
                 .Where(x => x.EmployerId == id)
                 .Any();
-            if (Employer)
-                return SingleRespons<Employer>.Failed(ResponsStatus.Success);
+            if (Employer) return SingleRespons<Employer>.Failed(ResponsStatus.UnknownError);
 
             return DeleteData(id);
         }
