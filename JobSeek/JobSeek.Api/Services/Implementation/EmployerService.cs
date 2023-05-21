@@ -11,7 +11,6 @@ namespace JobSeek.Api.Services.Implementation
     {
         public EmployerService(IBaseRepository<Employer> repository) : base(repository)
         { }
-    
 
         public ListRespons<Employer> GetAllData()
         {
@@ -37,10 +36,10 @@ namespace JobSeek.Api.Services.Implementation
             var employer = GetAll()
                 .Where(x => x.RegisterId == input.RegisterId)
                 .Any();
-            if (!employer)
-                return ListRespons<Employer>.Failed(ResponsStatus.NotFound); CreateData(input);
+            if (employer)
+                return ListRespons<Employer>.Failed(ResponsStatus.Success); 
 
-            return ListRespons<Employer>.Success(GetAll());
+            return CreateData(input);
         }
 
         public ListRespons<Employer> UpdateData(int id, EmployerInput input)
@@ -52,10 +51,10 @@ namespace JobSeek.Api.Services.Implementation
             var isRegisterIdExist = GetAll()
                .Where(x => x.RegisterId == input.RegisterId && x.Id != id)
                .Any();
-            if (!isRegisterIdExist)
-                return ListRespons<Employer>.Failed(ResponsStatus.NotFound); UpdateData(id, input);
-
-            return ListRespons<Employer>.Success(GetAll());
+            if (isRegisterIdExist) 
+                ListRespons<Employer>.Failed(ResponsStatus.Success);
+                
+            return UpdateData(id, input);
         }
 
         public SingleRespons<Employer> DeleteData(int id)
@@ -67,10 +66,10 @@ namespace JobSeek.Api.Services.Implementation
             var Employer = GetAll<Job>()
                 .Where(x => x.EmployerId == id)
                 .Any();
-            if (!Employer)
-                return SingleRespons<Employer>.Failed(ResponsStatus.NotFound); DeleteData(id);
+            if (Employer)
+                return SingleRespons<Employer>.Failed(ResponsStatus.Success);
 
-            return SingleRespons<Employer>.Success(existedEmployer);
+            return DeleteData(id);
         }
     }
 }
