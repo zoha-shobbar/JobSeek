@@ -77,7 +77,7 @@ namespace JobSeek.Api.Services.Implementation
             var result = GetAll()
                 .Where(x => x.RegisterId == input.RegisterId)
                 .Any();
-            if (!result) return ListRespons<Employer>.Failed(ResponsStatus.Failed);
+            if (result) return ListRespons<Employer>.Failed(ResponsStatus.UnknownError);
 
             var entity = input.Adapt<Employer>();
             return CreateData(input);
@@ -91,7 +91,7 @@ namespace JobSeek.Api.Services.Implementation
             var resultExist = GetAll()
                .Where(x => x.RegisterId == input.RegisterId && x.Id != id)
                .Any();
-            if (resultExist) return ListRespons<Employer>.Failed(ResponsStatus.Failed);
+            if (resultExist) return ListRespons<Employer>.Failed(ResponsStatus.UnknownError);
 
             var entity = input.Adapt<Employer>();
             return UpdateData(id, input);
