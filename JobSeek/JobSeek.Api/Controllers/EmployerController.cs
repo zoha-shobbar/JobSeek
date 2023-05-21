@@ -30,7 +30,7 @@ namespace JobSeek.Api.Controllers
         [HttpPost("[action]")]
          public ListRespons<Employer> CreateData(Employer input)
          {
-            return CreateData(input);
+            return _service.CreateData(input);
          }
 
         [HttpPut("[action]")]

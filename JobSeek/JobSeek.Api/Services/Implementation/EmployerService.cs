@@ -13,6 +13,46 @@ namespace JobSeek.Api.Services.Implementation
         public EmployerService(IBaseRepository<Employer> repository) : base(repository)
         { }
 
+        public override Employer Create(EmployerInput input)
+        {
+            var employer = GetAll()
+                .Where(x => x.RegisterId == input.RegisterId)
+                .Any();
+            if (employer) throw new Exception("the employer alredy exist");
+
+            return Create(input);
+        }
+
+        public override Employer Update(int id, EmployerInput input)
+        {
+            var existedEmployer = GetById(id);
+
+            if (existedEmployer == null) throw new Exception("not found!");
+
+            var isRegisterIdExist = GetAll()
+               .Where(x => x.RegisterId == input.RegisterId && x.Id != id)
+               .Any();
+
+            if (isRegisterIdExist) throw new Exception("the RegisterId alredy exist");
+
+            return Update(id, input);
+        }
+
+        public override bool Delete(int id)
+        {
+            var existedEmployer = GetById(id);
+
+            if (existedEmployer == null) throw new Exception("not found!");
+
+            var Employer = GetAll<Job>()
+                .Where(x => x.EmployerId == id)
+                .Any();
+
+            if (Employer) throw new Exception("alredy in use");
+
+            return Delete(id);
+        }
+
         public ListRespons<Employer> GetAllData()
         {
             var result = GetAll();
@@ -34,10 +74,10 @@ namespace JobSeek.Api.Services.Implementation
 
         public ListRespons<Employer> CreateData(Employer input)
         {
-            var employer = GetAll()
+            var result = GetAll()
                 .Where(x => x.RegisterId == input.RegisterId)
                 .Any();
-            if (employer) return ListRespons<Employer>.Failed(ResponsStatus.UnknownError);
+            if (!result) return ListRespons<Employer>.Failed(ResponsStatus.Failed);
 
             var entity = input.Adapt<Employer>();
             return CreateData(input);
@@ -45,13 +85,13 @@ namespace JobSeek.Api.Services.Implementation
 
         public ListRespons<Employer> UpdateData(int id, EmployerInput input)
         {
-            var existedEmployer = GetById(id);
-            if (existedEmployer == null) return ListRespons<Employer>.Failed(ResponsStatus.NotFound);
+            var result = GetById(id);
+            if (result == null) return ListRespons<Employer>.Failed(ResponsStatus.NotFound);
 
-            var isRegisterIdExist = GetAll()
+            var resultExist = GetAll()
                .Where(x => x.RegisterId == input.RegisterId && x.Id != id)
                .Any();
-            if (isRegisterIdExist) return ListRespons<Employer>.Failed(ResponsStatus.UnknownError);
+            if (resultExist) return ListRespons<Employer>.Failed(ResponsStatus.Failed);
 
             var entity = input.Adapt<Employer>();
             return UpdateData(id, input);
@@ -59,14 +99,14 @@ namespace JobSeek.Api.Services.Implementation
 
         public SingleRespons<Employer> DeleteData(int id)
         {
-            var existedEmployer = GetById(id);
+            var result = GetById(id);
 
-            if (existedEmployer == null) return SingleRespons<Employer>.Failed(ResponsStatus.NotFound);
+            if (result == null) return SingleRespons<Employer>.Failed(ResponsStatus.NotFound);
 
-            var Employer = GetAll<Job>()
+            var resultExist = GetAll<Job>()
                 .Where(x => x.EmployerId == id)
                 .Any();
-            if (Employer) return SingleRespons<Employer>.Failed(ResponsStatus.UnknownError);
+            if (resultExist) return SingleRespons<Employer>.Failed(ResponsStatus.Failed);
 
             return DeleteData(id);
         }
