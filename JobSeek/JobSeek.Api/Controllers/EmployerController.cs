@@ -40,7 +40,7 @@ namespace JobSeek.Api.Controllers
         }
 
         [HttpDelete("[action]")]
-        public SingleRespons<Employer> DeleteData(int id)
+        public SingleRespons<bool> DeleteData(int id)
         {
             return _service.DeleteData(id);
         }

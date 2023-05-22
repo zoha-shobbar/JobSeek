@@ -10,6 +10,6 @@ namespace JobSeek.Api.Services.Contracts
         SingleRespons<Employer> GetByIdData(int id);
         ListRespons<Employer> CreateData(Employer input);
         ListRespons<Employer> UpdateData(int id, EmployerInput input);
-        SingleRespons<Employer> DeleteData(int id);
+        SingleRespons<bool> DeleteData(int id);
     }
 }
