@@ -1,5 +1,6 @@
 ﻿using JobSeek.Api.Models.Entities.Common;
 using JobSeek.Api.Repository.Contracts;
+using JobSeek.Api.Responses;
 using JobSeek.Api.Services.Contracts;
 using Mapster;
 
@@ -15,49 +16,45 @@ namespace JobSeek.Api.Services.Implementation
         {
             _repository = repository;
         }
-        public List<TEntity> GetAll()
-        {
-            return _repository.GetAll();
-        }
 
-        public List<TCustomEntity> GetAll<TCustomEntity>()
+        public virtual ListRespons<TCustomEntity> GetAll<TCustomEntity>()
             where TCustomEntity : BaseEntity
         {
-            return _repository.GetAll<TCustomEntity>();
+            var result = GetAll<TCustomEntity>();
+            if (result == null) return ListRespons<TCustomEntity>.Failed(ResponsStatus.NotFound);
+            return ListRespons<TCustomEntity>.Success(_repository.GetAll<TCustomEntity>());
         }
 
-        public TEntity GetById(int id)
+        public virtual SingleRespons<TEntity> GetById(int id)
         {
-            return _repository.GetById(id);
+            var result = GetById(id);
+            if (result == null)
+                return SingleRespons<TEntity>.Failed(ResponsStatus.NotFound);
+
+            return SingleRespons<TEntity>.Success(_repository.GetById(id));
         }
 
-        public virtual TEntity Create(TInput input)
+        public virtual ListRespons<TEntity> Create(TInput input)
         {
             var entity = input.Adapt<TEntity>();
-
-            return _repository.Create(entity);
+            return ListRespons<TEntity>.Success(_repository.Create(entity);
         }
 
-        public virtual TEntity Update(int id, TInput input)
+        public virtual ListRespons<TEntity> Update(int id, TInput input)
         {
             var existedEntity = _repository.GetById(id);
-
-            if (existedEntity == null)
-                throw new Exception("this is not found!");
-
+            if (existedEntity == null) return ListRespons<TEntity>.Failed(ResponsStatus.NotFound);
             var entity = input.Adapt<TEntity>();
 
-            return _repository.Update(id, entity);
+            return ListRespons<TEntity>.Success(_repository.Update(id, entity);
         }
 
-        public virtual bool Delete(int id)
+        public virtual SingleRespons<bool> Delete(int id)
         {
             var existedEntity = _repository.GetById(id);
+            if (existedEntity == null) return SingleRespons<bool>.Failed(ResponsStatus.NotFound);
 
-            if (existedEntity == null)
-                throw new Exception("this is not found!");
-
-            return _repository.Delete(id);
+            return SingleRespons<bool>.Success(_repository.Delete(id));
         }
     }
 }

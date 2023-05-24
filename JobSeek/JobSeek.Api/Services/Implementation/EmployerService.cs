@@ -1,10 +1,8 @@
 ﻿using JobSeek.Api.Models.Entities;
-using JobSeek.Api.Models.Entities.Common;
 using JobSeek.Api.Models.Input;
 using JobSeek.Api.Repository.Contracts;
 using JobSeek.Api.Responses;
 using JobSeek.Api.Services.Contracts;
-using NuGet.Protocol.Core.Types;
 using System.Data;
 
 namespace JobSeek.Api.Services.Implementation
@@ -14,54 +12,43 @@ namespace JobSeek.Api.Services.Implementation
         public EmployerService(IBaseRepository<Employer> repository) : base(repository)
         { }
 
-        public override Employer Create(EmployerInput input)
+        public override ListRespons<Employer> Create(EmployerInput input)
         {
-            var employer = GetAll()
+            var result = GetAll<Employer>()
                 .Where(x => x.RegisterId == input.RegisterId)
                 .Any();
-            if (employer) throw new Exception("the employer alredy exist");
+            if (result) return ListRespons<Employer>.Failed(ResponsStatus.UnknownError);
 
             return Create(input);
         }
 
-        public override Employer Update(int id, EmployerInput input)
+        public override ListRespons<Employer> Update(int id, EmployerInput input)
         {
             var existedEmployer = GetById(id);
 
-            if (existedEmployer == null) throw new Exception("not found!");
+            var result = GetById(id);
+            if (result == null) return ListRespons<Employer>.Failed(ResponsStatus.NotFound);
+            var resultExist = GetAll<Employer>()
+                .Where(x => x.RegisterId == input.RegisterId && x.Id != id)
+                .Any();
 
-            var isRegisterIdExist = GetAll()
-               .Where(x => x.RegisterId == input.RegisterId && x.Id != id)
-               .Any();
-
-            if (isRegisterIdExist) throw new Exception("the RegisterId alredy exist");
+            if (resultExist) return ListRespons<Employer>.Failed(ResponsStatus.UnknownError);
 
             return Update(id, input);
         }
 
-        public override bool Delete(int id)
+        public override SingleRespons<bool> Delete(int id)
         {
-            var existedEmployer = GetById(id);
+            var result = GetById(id);
 
-            if (existedEmployer == null) throw new Exception("not found!");
+            if (result == null) return SingleRespons<bool>.Failed(ResponsStatus.NotFound);
 
-            var Employer = GetAll<Job>()
+            var resultExist = GetAll<Job>()
                 .Where(x => x.EmployerId == id)
                 .Any();
 
-            if (Employer) throw new Exception("alredy in use");
-
+            if (resultExist) return SingleRespons<bool>.Failed(ResponsStatus.Failed);
             return Delete(id);
-        }
-
-        public ListRespons<Employer> GetAllData()
-        {
-            var result = GetAll();
-
-            if (!result.Any())
-                return ListRespons<Employer>.Failed(ResponsStatus.NotFound);
-
-            return ListRespons<Employer>.Success(result);
         }
     }
 }

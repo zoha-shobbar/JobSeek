@@ -1,4 +1,5 @@
 ﻿using JobSeek.Api.Models.Entities.Common;
+using JobSeek.Api.Responses;
 using JobSeek.Api.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,31 +20,31 @@ namespace JobSeek.Api.Controllers
         }
 
         [HttpGet]
-        public List<TEntity> Get()
+        public ListRespons<TEntity> GetAll()
         {
-            return _service.GetAll();
+            return _service.GetAll<TEntity>();
         }
 
         [HttpGet("id")]
-        public TEntity Get(int id)
+        public SingleRespons<TEntity> GetById(int id)
         {
             return _service.GetById(id);
         }
 
         [HttpPost]
-        public TEntity Create(TInput input)
+        public ListRespons<TEntity> Create(TInput input)
         {
             return _service.Create(input);
         }
 
         [HttpPut]
-        public TEntity Update(int id, TInput input)
+        public ListRespons<TEntity> Update(int id, TInput input)
         {
             return _service.Update(id, input);
         }
 
         [HttpDelete]
-        public bool Delete(int id)
+        public SingleRespons<bool> Delete(int id)
         {
             return _service.Delete(id);
         }
