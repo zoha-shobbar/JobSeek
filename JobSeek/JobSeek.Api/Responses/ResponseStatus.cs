@@ -1,6 +1,6 @@
 ﻿namespace JobSeek.Api.Responses;
 
-public enum ResponsStatus
+public enum ResponseStatus
 {
     Success,
     Failed,

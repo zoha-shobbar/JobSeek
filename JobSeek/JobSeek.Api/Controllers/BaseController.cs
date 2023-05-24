@@ -20,31 +20,31 @@ namespace JobSeek.Api.Controllers
         }
 
         [HttpGet]
-        public ListRespons<TEntity> GetAll()
+        public ListResponse<TEntity> GetAll()
         {
             return _service.GetAll<TEntity>();
         }
 
         [HttpGet("id")]
-        public SingleRespons<TEntity> GetById(int id)
+        public SingleResponse<TEntity> GetById(int id)
         {
             return _service.GetById(id);
         }
 
         [HttpPost]
-        public ListRespons<TEntity> Create(TInput input)
+        public ListResponse<TEntity> Create(TInput input)
         {
             return _service.Create(input);
         }
 
         [HttpPut]
-        public ListRespons<TEntity> Update(int id, TInput input)
+        public ListResponse<TEntity> Update(int id, TInput input)
         {
             return _service.Update(id, input);
         }
 
         [HttpDelete]
-        public SingleRespons<bool> Delete(int id)
+        public SingleResponse<bool> Delete(int id)
         {
             return _service.Delete(id);
         }

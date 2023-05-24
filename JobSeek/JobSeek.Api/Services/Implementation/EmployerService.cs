@@ -12,42 +12,42 @@ namespace JobSeek.Api.Services.Implementation
         public EmployerService(IBaseRepository<Employer> repository) : base(repository)
         { }
 
-        public override ListRespons<Employer> Create(EmployerInput input)
+        public override ListResponse<Employer> Create(EmployerInput input)
         {
             var result = GetAll<Employer>()
                 .Where(x => x.RegisterId == input.RegisterId)
                 .Any();
-            if (result) return ListRespons<Employer>.Failed(ResponsStatus.UnknownError);
+            if (result) return ListResponse<Employer>.Failed(ResponseStatus.UnknownError);
 
             return Create(input);
         }
 
-        public override ListRespons<Employer> Update(int id, EmployerInput input)
+        public override ListResponse<Employer> Update(int id, EmployerInput input)
         {
             var existedEmployer = GetById(id);
 
             var result = GetById(id);
-            if (result == null) return ListRespons<Employer>.Failed(ResponsStatus.NotFound);
+            if (result == null) return ListResponse<Employer>.Failed(ResponseStatus.NotFound);
             var resultExist = GetAll<Employer>()
                 .Where(x => x.RegisterId == input.RegisterId && x.Id != id)
                 .Any();
 
-            if (resultExist) return ListRespons<Employer>.Failed(ResponsStatus.UnknownError);
+            if (resultExist) return ListResponse<Employer>.Failed(ResponseStatus.UnknownError);
 
             return Update(id, input);
         }
 
-        public override SingleRespons<bool> Delete(int id)
+        public override SingleResponse<bool> Delete(int id)
         {
             var result = GetById(id);
 
-            if (result == null) return SingleRespons<bool>.Failed(ResponsStatus.NotFound);
+            if (result == null) return SingleResponse<bool>.Failed(ResponseStatus.NotFound);
 
             var resultExist = GetAll<Job>()
                 .Where(x => x.EmployerId == id)
                 .Any();
 
-            if (resultExist) return SingleRespons<bool>.Failed(ResponsStatus.Failed);
+            if (resultExist) return SingleResponse<bool>.Failed(ResponseStatus.Failed);
             return Delete(id);
         }
     }
