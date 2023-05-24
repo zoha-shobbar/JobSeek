@@ -46,7 +46,7 @@ namespace JobSeek.Api.Services.Implementation
             if (existedEntity == null) return ListRespons<TEntity>.Failed(ResponsStatus.NotFound);
             var entity = input.Adapt<TEntity>();
 
-            return ListRespons<TEntity>.Success(_repository.Update(id, entity);
+            return ListRespons<TEntity>.Success(_repository.Update(id, entity));
         }
 
         public virtual SingleRespons<bool> Delete(int id)
