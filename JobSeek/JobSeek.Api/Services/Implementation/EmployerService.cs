@@ -12,27 +12,27 @@ namespace JobSeek.Api.Services.Implementation
         public EmployerService(IBaseRepository<Employer> repository) : base(repository)
         { }
 
-        public override ListResponse<Employer> Create(EmployerInput input)
+        public override SingleResponse<Employer> Create(EmployerInput input)
         {
             var result = GetAll<Employer>()
                 .Where(x => x.RegisterId == input.RegisterId)
                 .Any();
-            if (result) return ListResponse<Employer>.Failed(ResponseStatus.UnknownError);
+
+            if (result) return SingleResponse<Employer>.Failed(ResponseStatus.UnknownError);
 
             return Create(input);
         }
 
-        public override ListResponse<Employer> Update(int id, EmployerInput input)
+        public override SingleResponse<Employer> Update(int id, EmployerInput input)
         {
-            var existedEmployer = GetById(id);
-
             var result = GetById(id);
-            if (result == null) return ListResponse<Employer>.Failed(ResponseStatus.NotFound);
+            if (result == null) return SingleResponse<Employer>.Failed(ResponseStatus.NotFound);
+
             var resultExist = GetAll<Employer>()
                 .Where(x => x.RegisterId == input.RegisterId && x.Id != id)
                 .Any();
 
-            if (resultExist) return ListResponse<Employer>.Failed(ResponseStatus.UnknownError);
+            if (resultExist) return SingleResponse<Employer>.Failed(ResponseStatus.UnknownError);
 
             return Update(id, input);
         }

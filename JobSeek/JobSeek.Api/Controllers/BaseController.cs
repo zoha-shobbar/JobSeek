@@ -32,13 +32,13 @@ namespace JobSeek.Api.Controllers
         }
 
         [HttpPost]
-        public ListResponse<TEntity> Create(TInput input)
+        public SingleResponse<TEntity> Create(TInput input)
         {
             return _service.Create(input);
         }
 
         [HttpPut]
-        public ListResponse<TEntity> Update(int id, TInput input)
+        public SingleResponse<TEntity> Update(int id, TInput input)
         {
             return _service.Update(id, input);
         }
