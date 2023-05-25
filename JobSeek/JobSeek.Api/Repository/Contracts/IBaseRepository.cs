@@ -1,5 +1,4 @@
-﻿using JobSeek.Api.Models.Entities;
-using JobSeek.Api.Models.Entities.Common;
+﻿using JobSeek.Api.Models.Entities.Common;
 
 namespace JobSeek.Api.Repository.Contracts
 {
