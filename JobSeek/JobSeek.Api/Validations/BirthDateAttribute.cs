@@ -3,7 +3,7 @@
 namespace JobSeek.Api.Validations
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class BirthDayAttribute:ValidationAttribute
+    public class BirthDateAttribute:ValidationAttribute
     {
         public bool IsValid(object? value)
         {

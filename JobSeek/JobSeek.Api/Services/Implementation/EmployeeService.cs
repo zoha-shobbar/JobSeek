@@ -16,49 +16,52 @@ namespace JobSeek.Api.Services.Implementation
         {
             _repository = repository;
         }
-        public Employee Create(EmployeeInput input)
+        public SingleResponse<Employee> Create(EmployeeInput input)
         {
             
-            var email = GetAll().Where(x => x.Email == input.Email).Any();
-            if (email)
-                SingleResponse<Employee>.Failed(ResponseStatus.Faild);
+            var isEmailExist = GetAll().Where(x => x.Email == input.Email).Any();
+            if (isEmailExist)
+                return SingleResponse<Employee>.Failed(ResponseStatus.alreadyExist);
 
-            var phoneNumber = GetAll().Where(x => x.PhoneNumber == input.PhoneNumber).Any();
-            if (phoneNumber)
-                SingleResponse<Employee>.Failed(ResponseStatus.Faild);
+            var isPhoneNumberExist = GetAll().Where(x => x.PhoneNumber == input.PhoneNumber).Any();
+            if (isPhoneNumberExist)
+                return SingleResponse<Employee>.Failed(ResponseStatus.alreadyExist);
 
-            var nationalcode = GetAll().Where(x => x.NatioanlCode == input.NatioanlCode).Any();
-            if (nationalcode)
-                SingleResponse<Employee>.Failed(ResponseStatus.Faild);
+            var isNationalcodeExist = GetAll().Where(x => x.NatioanlCode == input.NatioanlCode).Any();
+            if (isNationalcodeExist)
+                return SingleResponse<Employee>.Failed(ResponseStatus.alreadyExist);
 
             var employee = input.Adapt<Employee>();
-            return _repository.Create(employee);
+            return SingleResponse<Employee>.Success(_repository.Create(employee));
 
         }
 
-        public Employee Update(int id, EmployeeInput input)
+        public SingleResponse<Employee> Update(int id, EmployeeInput input)
         {
            
             //Phone Number
             var isPhoneExist = GetAll()
                 .Where(x => x.PhoneNumber == input.PhoneNumber && x.Id != id)
                 .Any();
-            if (isPhoneExist) throw new Exception("Your email is already in use");
+            if (isPhoneExist)
+                return SingleResponse<Employee>.Failed(ResponseStatus.alreadyExist);
 
             //Email
             var isEmailExist = GetAll()
                 .Where(x => x.Email == input.Email && x.Id != id)
                 .Any();
-            if (isEmailExist) throw new Exception("Your email is already in use");
+            if (isEmailExist)
+                return SingleResponse<Employee>.Failed(ResponseStatus.alreadyExist);
 
             //National Code
-            var nationalcode = GetAll()
+            var isNationalcodeExist = GetAll()
                 .Where(x => x.NatioanlCode == input.NatioanlCode)
                 .Any();
-            if (nationalcode) throw new Exception("nationalcode already exists");
+            if (isNationalcodeExist)
+                return SingleResponse<Employee>.Failed(ResponseStatus.alreadyExist);
 
             var employee = input.Adapt<Employee>();
-            return employee;
+            return SingleResponse<Employee>.Success(_repository.Update(id, employee));
         }
         public bool Delete(int id)
         {

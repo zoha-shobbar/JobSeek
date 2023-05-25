@@ -35,7 +35,6 @@ namespace JobSeek.Api.Services.Implementation
         public TEntity Create(TInput input)
         {
             var entity = input.Adapt<TEntity>();
-
             return _repository.Create(entity);
         }
         public TEntity Update(int id, TInput input)
@@ -46,7 +45,6 @@ namespace JobSeek.Api.Services.Implementation
                 throw new Exception("this is not found!");
 
             var entity = input.Adapt<TEntity>();
-
             return _repository.Update(id, entity);
         }
         public bool Delete(int id)
@@ -55,9 +53,7 @@ namespace JobSeek.Api.Services.Implementation
 
             if (existedEntity == null)
                 throw new Exception("this is not found!");
-
             return _repository.Delete(id);
         }
-        
     }
 }

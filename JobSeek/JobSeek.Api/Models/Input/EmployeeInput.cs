@@ -11,7 +11,7 @@ namespace JobSeek.Api.Models.Input
         public Education MajoringIn { get; set; }
         public SeniorityLevel Degree { get; set; }
 
-        [BirthDay]
+        [BirthDate]
         public DateTimeOffset BirthDate { get; set; }
         public Gender Gender { get; set; }
         public MaterialStatus MaritalStatus { get; set; }
