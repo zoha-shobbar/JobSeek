@@ -16,46 +16,69 @@ namespace JobSeek.Api.Services.Implementation
         {
             _repository = repository;
         }
-        public List<TEntity> GetAll()
+        public IQueryable<TEntity> Get()
         {
             return _repository.GetAll();
+        }
+
+        public IQueryable<TCustomEntity> Get<TCustomEntity>()
+            where TCustomEntity : BaseEntity
+        {
+            return _repository.GetAll<TCustomEntity>();
+        }
+
+        public virtual ListResponse<TEntity> GetAll()
+        {
+            var result = _repository.GetAll().ToList();
+         
+            if (result == null) return ResponseStatus.NotFound;
+            
+            return result;
         }
 
         public virtual ListResponse<TCustomEntity> GetAll<TCustomEntity>()
             where TCustomEntity : BaseEntity
         {
-            var result = _repository.GetAll();
-            if (result == null) return ListResponse<TCustomEntity>.Failed(ResponseStatus.NotFound);
-            return ListResponse<TCustomEntity>.Success(result);
+            var result = _repository.GetAll<TCustomEntity>().ToList();
+
+            if (result == null) return ResponseStatus.NotFound;
+
+            return result;
         }
 
         public virtual SingleResponse<TEntity> GetById(int id)
         {
             var result = _repository.GetById(id);
-            if (result == null)
-                return SingleResponse<TEntity>.Failed(ResponseStatus.NotFound);
 
-            return SingleResponse<TEntity>.Success(result);
+            if (result == null)
+                return ResponseStatus.NotFound;
+
+            return result;
         }
 
         public virtual SingleResponse<TEntity> Create(TInput input)
         {
-            var result = _repository.Create(input.Adapt<TEntity>());
-            return SingleResponse<TEntity>.Success(result);
+            var entity = input.Adapt<TEntity>();
+            var result = _repository.Create(entity);
+
+            return result;
         }
 
         public virtual SingleResponse<TEntity> Update(int id, TInput input)
         {
             var result = _repository.GetById(id);
-            if (result == null) return SingleResponse<TEntity>.Failed(ResponseStatus.NotFound);
+            if (result == null) return ResponseStatus.NotFound;
 
-            var resultExist = _repository.Update(id, input.Adapt<TEntity>());
-            return SingleResponse<TEntity>.Success(resultExist);
+            var entity = input.Adapt<TEntity>();
+            var resultExist = _repository.Update(id, entity);
+
+            return resultExist;
         }
 
         public virtual SingleResponse<bool> Delete(int id)
         {
             var result = _repository.GetById(id);
+
             if (result == null) return SingleResponse<bool>.Failed(ResponseStatus.NotFound);
 
             return SingleResponse<bool>.Success(_repository.Delete(id));

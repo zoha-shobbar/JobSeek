@@ -13,14 +13,14 @@ namespace JobSeek.Api.Repository
         {
             _dbcontext = context;
         }
-        public List<TEntity> GetAll()
+        public IQueryable<TEntity> GetAll()
         {
-            return _dbcontext.Set<TEntity>().ToList();
+            return _dbcontext.Set<TEntity>();
         }
-        public List<TCustomEntity> GetAll<TCustomEntity>()
+        public IQueryable<TCustomEntity> GetAll<TCustomEntity>()
             where TCustomEntity : BaseEntity
         {
-            return _dbcontext.Set<TCustomEntity>().ToList();
+            return _dbcontext.Set<TCustomEntity>();
         }
 
         public TEntity GetById(int id)

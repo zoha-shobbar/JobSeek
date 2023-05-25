@@ -10,11 +10,21 @@ namespace JobSeek.Api.Responses
 
         public static SingleResponse<T> Success(T result)
         {
-            return new SingleResponse<T> {Status = ResponseStatus.Success , Result = result};
+            return new SingleResponse<T> { Status = ResponseStatus.Success, Result = result };
         }
         public static SingleResponse<T> Failed(ResponseStatus status)
         {
-            return new SingleResponse<T> { Status = status , Result = default};
+            return new SingleResponse<T> { Status = status, Result = default };
+        }
+
+        public static implicit operator SingleResponse<T>(ResponseStatus status)
+        {
+            return SingleResponse<T>.Failed(status);
+        }
+
+        public static implicit operator SingleResponse<T>(T result)
+        {
+            return SingleResponse<T>.Success(result);
         }
     }
 }
