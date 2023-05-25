@@ -43,12 +43,14 @@ namespace JobSeek.Api.Services.Implementation
             var result = GetById(id);
             if (result == null) return SingleResponse<bool>.Failed(ResponseStatus.NotFound);
 
-            var resultExist = GetAll<Job>()
-                .Where(x => x.EmployerId == id)
+            var resultExist = GetAll().Where(x => x.Id == id)
+               // .Where(x => x.EmployerId == id)
                 .Any();
 
             if (resultExist) return SingleResponse<bool>.Failed(ResponseStatus.Failed);
+
             return Delete(id);
         }
+       
     }
 }
