@@ -3,8 +3,9 @@
 public enum ResponseStatus
 {
     Success,
-    Faild,
+    Failed,
     NotFound,
     UnknownError,
-    alreadyExist
+    NotFound,
+    AlreadyExist
 }

@@ -1,6 +1,7 @@
 ﻿using NuGet.Protocol;
 
 namespace JobSeek.Api.Responses
+
 {
     public class SingleResponse<T>
     {
