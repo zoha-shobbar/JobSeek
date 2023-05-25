@@ -7,7 +7,8 @@ namespace JobSeek.Api.Services.Contracts
         where TEntity : BaseEntity, new()
         where TInput : class
     {
-        List<TEntity> GetAll();
+        IQueryable<TEntity> Get();
+        ListResponse<TEntity> GetAll();
         ListResponse<TCustomEntity> GetAll<TCustomEntity>() where TCustomEntity : BaseEntity;
         SingleResponse<TEntity> GetById(int id);
         SingleResponse<TEntity> Create(TInput input);
