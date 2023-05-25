@@ -34,7 +34,6 @@ namespace JobSeek.Api.Services.Implementation
         public virtual TEntity Create(TInput input)
         {
             var entity = input.Adapt<TEntity>();
-
             return _repository.Create(entity);
         }
 
@@ -46,7 +45,6 @@ namespace JobSeek.Api.Services.Implementation
                 throw new Exception("this is not found!");
 
             var entity = input.Adapt<TEntity>();
-
             return _repository.Update(id, entity);
         }
 
@@ -56,7 +54,6 @@ namespace JobSeek.Api.Services.Implementation
 
             if (existedEntity == null)
                 throw new Exception("this is not found!");
-
             return _repository.Delete(id);
         }
     }

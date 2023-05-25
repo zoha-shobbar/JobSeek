@@ -12,7 +12,7 @@ namespace JobSeek.Api.Models.Entities
         public Gender Gender { get; set; }
         public MaritalStatus MaritalStatus { get; set; }
         public MilitaryService MilitaryService { get; set; }
-
+        public string NatioanlCode { get; set; }
         //Collections
         public ICollection<JobEmployee> JobEmployees { get; set; }
     }
