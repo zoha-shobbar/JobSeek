@@ -12,9 +12,10 @@ namespace JobSeek.Api.Services.Implementation
         public EmployerService(IBaseRepository<Employer> repository) : base(repository)
         { }
 
+
         public override SingleResponse<Employer> Create(EmployerInput input)
         {
-            var result = GetAll<Employer>()
+            var result = GetAll()
                 .Where(x => x.RegisterId == input.RegisterId)
                 .Any();
 
@@ -28,7 +29,7 @@ namespace JobSeek.Api.Services.Implementation
             var result = GetById(id);
             if (result == null) return SingleResponse<Employer>.Failed(ResponseStatus.NotFound);
 
-            var resultExist = GetAll<Employer>()
+            var resultExist = GetAll()
                 .Where(x => x.RegisterId == input.RegisterId && x.Id != id)
                 .Any();
 
@@ -40,7 +41,6 @@ namespace JobSeek.Api.Services.Implementation
         public override SingleResponse<bool> Delete(int id)
         {
             var result = GetById(id);
-
             if (result == null) return SingleResponse<bool>.Failed(ResponseStatus.NotFound);
 
             var resultExist = GetAll<Job>()

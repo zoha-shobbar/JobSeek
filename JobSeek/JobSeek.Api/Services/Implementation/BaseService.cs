@@ -16,6 +16,10 @@ namespace JobSeek.Api.Services.Implementation
         {
             _repository = repository;
         }
+        public List<TEntity> GetAll()
+        {
+            return _repository.GetAll();
+        }
 
         public virtual ListResponse<TCustomEntity> GetAll<TCustomEntity>()
             where TCustomEntity : BaseEntity

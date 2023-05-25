@@ -8,6 +8,6 @@ namespace JobSeek.Api.Controllers
     {
         public EmployerController(IEmployerService service) : base(service)
 
-        {}
+        { }
     }
 }
