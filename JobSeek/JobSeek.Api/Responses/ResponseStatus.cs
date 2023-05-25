@@ -6,4 +6,6 @@ public enum ResponseStatus
     Failed,
     NotFound,
     UnknownError,
+    NotFound,
+    AlreadyExist
 }
