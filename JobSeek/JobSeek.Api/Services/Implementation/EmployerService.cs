@@ -12,14 +12,13 @@ namespace JobSeek.Api.Services.Implementation
         public EmployerService(IBaseRepository<Employer> repository) : base(repository)
         { }
 
-
         public override SingleResponse<Employer> Create(EmployerInput input)
         {
-            var result = GetAll()
+            var result = Get()
                 .Where(x => x.RegisterId == input.RegisterId)
                 .Any();
 
-            if (result) return SingleResponse<Employer>.Failed(ResponseStatus.UnknownError);
+            if (result) return ResponseStatus.AlreadyExist;
 
             return Create(input);
         }
@@ -27,13 +26,13 @@ namespace JobSeek.Api.Services.Implementation
         public override SingleResponse<Employer> Update(int id, EmployerInput input)
         {
             var result = GetById(id);
-            if (result == null) return SingleResponse<Employer>.Failed(ResponseStatus.NotFound);
+            if (result == null) return ResponseStatus.NotFound;
 
-            var resultExist = GetAll()
+            var resultExist = Get()
                 .Where(x => x.RegisterId == input.RegisterId && x.Id != id)
                 .Any();
 
-            if (resultExist) return SingleResponse<Employer>.Failed(ResponseStatus.UnknownError);
+            if (resultExist) return ResponseStatus.AlreadyExist;
 
             return Update(id, input);
         }
@@ -41,16 +40,15 @@ namespace JobSeek.Api.Services.Implementation
         public override SingleResponse<bool> Delete(int id)
         {
             var result = GetById(id);
-            if (result == null) return SingleResponse<bool>.Failed(ResponseStatus.NotFound);
-
-            var resultExist = GetAll().Where(x => x.Id == id)
-               // .Where(x => x.EmployerId == id)
+            if (result == null) return ResponseStatus.NotFound;
+          
+            var resultExist = Get<Job>()
+               .Where(x => x.EmployerId == id)
                 .Any();
 
-            if (resultExist) return SingleResponse<bool>.Failed(ResponseStatus.Failed);
+            if (resultExist) return ResponseStatus.UnknownError;
 
             return Delete(id);
-        }
-       
+        } 
     }
 }
