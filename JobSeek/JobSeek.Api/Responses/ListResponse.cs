@@ -7,7 +7,6 @@
         public string Message { get; set; }
 
 
-       
         public static implicit operator ListResponse<T>((ResponseStatus status, List<T> result) tuple)
         {
             return new ListResponse<T> { Status = tuple.status, Result = tuple.result, Message = "" };

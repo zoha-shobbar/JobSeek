@@ -8,13 +8,10 @@
         public string Message { get; set; }
 
 
-        public Tuple<ResponseStatus, string> responseTuble = Tuple.Create(ResponseStatus.Success, "message");
-
         public static implicit operator SingleResponse<T>((ResponseStatus status, T result) tuple)
         {
             return new SingleResponse<T> { Status = tuple.status, Result = tuple.result, Message = "" };
         }
-
 
         public static SingleResponse<T> Success(T result)
         {
