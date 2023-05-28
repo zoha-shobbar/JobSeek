@@ -7,8 +7,7 @@
         public string Message { get; set; }
 
 
-        public Tuple<ResponseStatus, string> responseTuble = Tuple.Create(ResponseStatus.Success, "message");
-
+       
         public static implicit operator ListResponse<T>((ResponseStatus status, List<T> result) tuple)
         {
             return new ListResponse<T> { Status = tuple.status, Result = tuple.result, Message = "" };
