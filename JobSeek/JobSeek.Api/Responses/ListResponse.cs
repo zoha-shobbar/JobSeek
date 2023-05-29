@@ -7,24 +7,28 @@
         public string Message { get; set; }
 
 
-        public static implicit operator ListResponse<T>((ResponseStatus status, List<T> result) tuple)
+        public ListResponse(ResponseStatus status, List<T>? result = null, string message = "")
         {
-            return new ListResponse<T> { Status = tuple.status, Result = tuple.result, Message = "" };
+            Status = status;
+            Result = result;
+            Message = message;
         }
 
         public static ListResponse<T> Success(List<T> result)
         {
-            return new ListResponse<T> { Status = ResponseStatus.Success, Result = result, Message = "" };
+            return new ListResponse<T>(ResponseStatus.Success, result);
+        }
+
+        public static ListResponse<T> Failed(ResponseStatus status, string message)
+        {
+            return new ListResponse<T>(status, null, message);
         }
 
         public static ListResponse<T> Failed(ResponseStatus status)
         {
-            return new ListResponse<T> { Status = status, Result = null };
+            return new ListResponse<T>(status);
         }
-        public static ListResponse<T> Failed(ResponseStatus status, string message)
-        {
-            return new ListResponse<T> { Status = status, Result = null, Message = message };
-        }
+
         public static implicit operator ListResponse<T>(List<T> result)
         {
             return ListResponse<T>.Success(result);
