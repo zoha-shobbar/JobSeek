@@ -15,7 +15,7 @@ namespace JobSeek.Api.Services.Implementation
 
         public override SingleResponse<Employer> Create(EmployerInput input)
         {
-            var result = GetAll()
+            var result = Get()
                 .Where(x => x.RegisterId == input.RegisterId)
                 .Any();
 
@@ -29,7 +29,7 @@ namespace JobSeek.Api.Services.Implementation
             var result = GetById(id);
             if (result == null) return SingleResponse<Employer>.Failed(ResponseStatus.NotFound);
 
-            var resultExist = GetAll()
+            var resultExist = Get()
                 .Where(x => x.RegisterId == input.RegisterId && x.Id != id)
                 .Any();
 
@@ -43,7 +43,7 @@ namespace JobSeek.Api.Services.Implementation
             var result = GetById(id);
             if (result == null) return SingleResponse<bool>.Failed(ResponseStatus.NotFound);
 
-            var resultExist = GetAll().Where(x => x.Id == id)
+            var resultExist = Get().Where(x => x.Id == id)
                // .Where(x => x.EmployerId == id)
                 .Any();
 

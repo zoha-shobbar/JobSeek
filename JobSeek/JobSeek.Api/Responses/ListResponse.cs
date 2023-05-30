@@ -7,7 +7,7 @@ namespace JobSeek.Api.Responses
         public ResponseStatus Status { get; set; }
         public List<T>? Result { get; set; }
         public string Message { get; set; }
-
+        Tuple<ResponseStatus ,string> Fullstatus; 
         public static ListResponse<T> Success(List<T> result)
         {
             return new ListResponse<T> { Status = ResponseStatus.Success, Result = result, Message = "" };
@@ -30,6 +30,10 @@ namespace JobSeek.Api.Responses
         public static implicit operator ListResponse<T>(ResponseStatus status)
         {
             return ListResponse<T>.Failed(status);
+        }
+        public static implicit operator ListResponse<T>(Tuple<ResponseStatus , string> v)
+        {
+            return new ListResponse<T> { Status = v.Item1, Message = v.Item2 };
         }
 
     }
