@@ -30,9 +30,9 @@ namespace JobSeek.Api.Services.Implementation
         public virtual ListResponse<TEntity> GetAll()
         {
             var result = _repository.GetAll().ToList();
-         
+
             if (result == null) return ResponseStatus.NotFound;
-            
+
             return result;
         }
 
@@ -79,9 +79,10 @@ namespace JobSeek.Api.Services.Implementation
         {
             var result = _repository.GetById(id);
 
-            if (result == null) return SingleResponse<bool>.Failed(ResponseStatus.NotFound);
+            if (result == null) return ResponseStatus.NotFound;
 
-            return SingleResponse<bool>.Success(_repository.Delete(id));
+            var resultExist = _repository.Delete(id);
+            return resultExist;
         }
     }
 }

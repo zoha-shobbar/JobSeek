@@ -3,6 +3,7 @@ using JobSeek.Api.Models.Input;
 
 namespace JobSeek.Api.Services.Contracts
 {
-    public interface IEmployeeService : IBaseService<Employee, EmployeeInput>
+    public interface IJobService : IBaseService<Job, JobInput>
     { }
 }
+
